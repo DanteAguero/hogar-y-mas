@@ -1,148 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        {% block title %}
-            {{ texts.site_title
-               if texts.site_title
-               else texts.site_name
-               if texts.site_name
-               else "Tienda Online" }}
-        {% endblock %}
-    </title>
+  <title>{% block title %}Hogar y Más{% endblock %}</title>
 
-    <!-- Tipografías -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-    <!-- CSS GLOBAL -->
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/global.css') }}"
-    >
+  <!-- CSS GLOBAL -->
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/global.css') }}"
+  >
 
-    <!-- THEME DE DEMO -->
-    {% if theme_css %}
-    <link
-        rel="stylesheet"
-        href="{{ theme_css }}"
-    >
-    {% endif %}
+  <!-- THEME HOGAR Y MÁS -->
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/themes/hogarmas.css') }}"
+  >
 
-    {% block head %}{% endblock %}
-
-    <!-- CONFIG DEMO PARA JS -->
-    <script>
-        window.DEMO = {{ demo | tojson }};
-        window.DEMO_TEXTS = {{ texts | tojson }};
-        window.DEMO_OPTIONS = {{ options | tojson }};
-    </script>
+  {% block head %}{% endblock %}
 </head>
 
-<body class="demo-{{ DEMO_SLUG }}">
+<body class="hogar-y-mas">
 
-    <main class="site-wrapper">
-
-    {% if DEMO_SLUG == "pro" %}
-    <!-- TOP INFO NAV (SOLO DEMO PRO) -->
-    <nav class="top-info-nav">
-        <a href="/guia-talles">Guía de talles</a>
-        <a href="/como-comprar">Cómo comprar</a>
-        <a href="/envios">Envíos</a>
-        <a href="/sobre-la-marca">Sobre la marca</a>
-    </nav>
-    {% endif %}
-
+  <main class="site-wrapper">
     {% block content %}{% endblock %}
+  </main>
 
-    </main>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
 
-
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <strong>
-                    {{ texts.site_title
-                       if texts.site_title
-                       else texts.site_name
-                       if texts.site_name
-                       else "Tienda Online" }}
-                </strong>
-
-                <span>
-                    {{ texts.footer_tagline
-                       if texts.footer_tagline
-                       else texts.store_subtitle
-                       if texts.store_subtitle
-                       else "" }}
-                </span>
-            </div>
-
-            <nav class="footer-links">
-                <a href="/terminos">Términos</a>
-                <a href="/privacidad">Privacidad</a>
-                <a href="/exencion">Aviso legal</a>
-
-                {% if demo.whatsapp %}
-                <a
-                    href="https://wa.me/+542634680619
-                    target="_blank"
-                >
-                    Contacto
-                </a>
-                {% endif %}
-            </nav>
-
-            <div class="footer-copy">
-                © {{ now().year if now is defined else "2025" }} — Todos los derechos reservados
-            </div>
-        </div>
-    </footer>
-	{% if DEMO_SLUG == "pro" %}
-  <!-- MINI CART -->
-  <div class="mini-cart-overlay" id="miniCartOverlay"></div>
-
-  <aside class="mini-cart" id="miniCart">
-    <header class="mini-cart-header">
-      <h3>Tu carrito</h3>
-      <button class="mini-cart-close" id="closeMiniCart">×</button>
-    </header>
-
-    <div class="mini-cart-items" id="miniCartItems">
-      <!-- items dinámicos -->
-    </div>
-
-    <footer class="mini-cart-footer">
-      <div class="mini-cart-total">
-        <span>Total</span>
-        <strong id="miniCartTotal">$0</strong>
+      <div class="footer-brand">
+        <strong>Hogar y Más</strong>
+        <span>Diseño y confort para tu hogar</span>
       </div>
 
-      <a
-        href="#"
-        id="checkoutWhatsapp"
-        class="mini-cart-checkout"
-        target="_blank"
-      >
-        Finalizar pedido
-      </a>
-    </footer>
-  </aside>
-{% endif %}
+      <nav class="footer-links">
+        <a href="/terminos">Términos</a>
+        <a href="/privacidad">Privacidad</a>
+        <a href="/exencion">Aviso legal</a>
+        <a
+          href="https://wa.me/5492634680619"
+          target="_blank"
+          rel="noopener"
+        >
+          Contacto
+        </a>
+      </nav>
 
-      </footer>
-    </aside>
+      <div class="footer-copy">
+        © {{ now().year if now is defined else "2025" }} — Todos los derechos reservados
+      </div>
 
+    </div>
+  </footer>
 
-    <!-- JS GLOBAL -->
-    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+  <!-- JS GLOBAL -->
+  <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
 
-    {% block scripts %}{% endblock %}
+  {% block scripts %}{% endblock %}
 
 </body>
 </html>

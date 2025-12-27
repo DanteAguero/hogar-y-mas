@@ -50,15 +50,6 @@ def price_ars(value):
     except:
         return "$0"
 
-# =============================
-# INYECTAR CONTEXTO DE DEMO (PASO 4)
-# =============================
-from core.helpers import load_demo
-
-@app.context_processor
-def inject_demo_context():
-    return load_demo()
-
 # -----------------------------
 # CONFIG APP
 # -----------------------------
