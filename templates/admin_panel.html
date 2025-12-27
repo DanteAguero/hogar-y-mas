@@ -124,58 +124,5 @@
 
   </div>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const categorySelect = document.getElementById("new_category");
-
-  if (!window.CATEGORIES || window.CATEGORIES.length === 0) {
-    console.warn("No hay categorías");
-    return;
-  }
-
-  categorySelect.innerHTML = `<option value="">Categoría</option>`;
-
-  window.CATEGORIES.forEach(cat => {
-    const opt = document.createElement("option");
-    opt.value = cat.id;
-    opt.textContent = cat.name;
-    categorySelect.appendChild(opt);
-  });
-
-  categorySelect.disabled = false;
-});
-</script>
-<script>
-const BADGES = [
-  "Nuevo",
-  "Oferta",
-  "Destacado",
-  "Últimas unidades"
-];
-
-const container = document.getElementById("badgesContainer");
-const selectedBadges = new Set();
-
-BADGES.forEach(badge => {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.textContent = badge;
-  btn.className = "badge-btn";
-
-  btn.onclick = () => {
-    btn.classList.toggle("active");
-    if (selectedBadges.has(badge)) {
-      selectedBadges.delete(badge);
-    } else {
-      selectedBadges.add(badge);
-    }
-  };
-
-  container.appendChild(btn);
-});
-
-// para usar desde addStock()
-window.getSelectedBadges = () => Array.from(selectedBadges);
-</script>
-
+<script src="/static/scripts.js"></script>
 {% endblock %}
