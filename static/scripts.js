@@ -154,16 +154,6 @@ function applyFilters() {
 }
 
 /* ==========================================================
-   BADGES — TRADUCCIÓN GLOBAL
-========================================================== */
-const BADGE_LABELS = {
-  new: "Nuevo",
-  sale: "Oferta",
-  liquidacion: "Liquidación",
-  promo: "Promoción",
-  top: "Más vendido"
-};
-/* ==========================================================
    BADGES — MAPA ID → SLUG (FIX)
 ========================================================== */
 const BADGE_KEYS = {
@@ -278,30 +268,6 @@ function renderPage() {
 }
 
 /* ==========================================================
-   ITEM DETAIL — RENDER BADGES (ES)
-========================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("productBadges");
-  if (!container) return;
-
-  let badges = [];
-  try {
-    badges = JSON.parse(container.dataset.badges || "[]");
-  } catch {
-    return;
-  }
-
-  container.innerHTML = badges
-    .map(badge => `
-      <span class="card-badge card-badge-${badge}">
-        ${BADGE_LABELS[badge] || badge}
-      </span>
-    `)
-    .join("");
-});
-
-
-/* ==========================================================
    PAGINACIÓN
 ========================================================== */
 function changePage(delta) {
@@ -404,9 +370,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!gender) return;
 
-    window.CATEGORIES
-      .filter(c => c[3] === gender)   // 👈 parent_name
-      .forEach(c => {
+    window.CATEGORIES.forEach(c => {
+	  const opt = document.createElement("option");
+	  opt.value = c[0];       // id
+	  opt.textContent = c[1]; // name
+	  categorySelect.appendChild(opt);
+	});	
+      
         const opt = document.createElement("option");
         opt.value = c[0];             // 👈 id
         opt.textContent = c[1];       // 👈 name
