@@ -40,6 +40,19 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app = Flask(__name__)
 
+# ==========================================================
+# CONTEXTO GLOBAL PARA TEMPLATES (PRODUCCIÓN)
+# ==========================================================
+@app.context_processor
+def inject_global_context():
+    return {
+        "texts": {
+            "site_title": "Hogar y Más",
+            "site_name": "Hogar y Más",
+            "footer_tagline": "Todo para tu hogar"
+        }
+    }
+
 # =============================
 # FILTRO JINJA — FORMATO PRECIO ARS
 # =============================
