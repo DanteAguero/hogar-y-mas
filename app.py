@@ -18,6 +18,13 @@ from dotenv import load_dotenv
 import pyotp
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from supabase import create_client   # 👈 SUPABASE
+
+# ==========================================================
+# CONFIG BASE
+# ==========================================================
+
+load_dotenv()
 
 DB_CONFIG = {
     "host": "stock_db",
@@ -27,18 +34,25 @@ DB_CONFIG = {
     "port": 5432
 }
 
-load_dotenv()
-
 # -----------------------------
-# CONFIGURACIÓN
+# CONFIGURACIÓN APP
 # -----------------------------
 PORT = int(os.environ.get("APP_PORT", 8080))
-DATABASE_URL = os.environ.get("DATABASE_URL")  # (lo dejamos, pero NO lo usamos para evitar inconsistencias)
-
-UPLOAD_FOLDER = "static/uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app = Flask(__name__)
+
+UPLOAD_FOLDER = "static/uploads"  # (queda, pero ya no se usa para imágenes)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+# -----------------------------
+# CONFIG SUPABASE STORAGE
+# -----------------------------
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
+SUPABASE_BUCKET = os.environ.get("SUPABASE_BUCKET")
+
+supabase = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 # ==========================================================
 # CONTEXTO GLOBAL PARA TEMPLATES (PRODUCCIÓN)
@@ -465,13 +479,29 @@ def add_stock():
 
         # ---------- IMÁGENES ----------
         images_paths = []
+        
         for i in range(1, 5):
             f = request.files.get(f"image{i}")
             if f and f.filename:
                 filename = secure_filename(f.filename)
-                save_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-                f.save(save_path)
-                images_paths.append(f"/static/uploads/{filename}")
+
+                # path dentro del bucket
+                path = f"products/{filename}"
+
+                # subir a Supabase
+                supabase.storage.from_(SUPABASE_BUCKET).upload(
+                    path,
+                    f.read(),
+                    file_options={
+                        "content-type": f.mimetype,
+                        "upsert": True
+                    }
+                )
+
+                # obtener URL pública
+                public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(path)
+
+                images_paths.append(public_url)
 
         # ---------- CAMPOS ----------
         title = (data.get("title") or "").strip()
