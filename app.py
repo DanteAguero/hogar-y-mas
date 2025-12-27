@@ -20,19 +20,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from supabase import create_client   # 👈 SUPABASE
 
-# ==========================================================
-# CONFIG BASE
-# ==========================================================
-
 load_dotenv()
-
-DB_CONFIG = {
-    "host": "stock_db",
-    "database": "postgres",
-    "user": "user_veritas",
-    "password": "password_segura",
-    "port": 5432
-}
 
 # -----------------------------
 # CONFIGURACIÓN APP
@@ -99,8 +87,10 @@ limiter.init_app(app)
 # CONEXIÓN A BD
 # -----------------------------
 def get_db_connection():
-    # ✅ FIX: usar UNA sola fuente de verdad (DB_CONFIG)
-    return psycopg2.connect(**DB_CONFIG)
+    return psycopg2.connect(
+        os.environ["DATABASE_URL"],
+        sslmode="require"
+    )
 
 
 # -----------------------------
