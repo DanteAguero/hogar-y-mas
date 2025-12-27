@@ -1,0 +1,238 @@
+/* ==========================
+   ADMIN PANEL — BASE
+========================== */
+
+.admin-page {
+  padding-bottom: 120px;
+}
+
+.admin-page * {
+  box-sizing: border-box;
+}
+
+/* =========================
+   ADMIN FORM GRID
+========================= */
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   TEXTAREA
+========================= */
+
+.admin-textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* =========================
+   IMAGES UPLOAD (FIX REAL)
+========================= */
+
+.admin-images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.admin-images > div {
+  background: rgba(255,255,255,0.04);
+  border: 1px dashed rgba(255,255,255,0.18);
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+}
+
+.admin-images input[type="file"] {
+  width: 100%;
+  font-size: 11px;
+}
+
+.admin-images img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  margin-top: 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.25);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .admin-images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================
+   PRIMARY BUTTON
+========================= */
+
+.admin-primary-btn {
+  margin-top: 18px;
+  width: 100%;
+  height: 52px;
+  border-radius: 14px;
+  font-weight: 700;
+}
+
+/* Sticky en mobile */
+@media (max-width: 768px) {
+  .admin-primary-btn {
+    position: sticky;
+    bottom: 14px;
+    z-index: 10;
+  }
+}
+
+/* =========================
+   PRODUCTS GRID (ADMIN)
+========================= */
+
+.admin-page .cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+/* MOBILE → 1 columna */
+@media (max-width: 768px) {
+  .admin-page .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   EDIT MODAL
+========================= */
+
+.edit-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(2,6,23,0.75);
+  backdrop-filter: blur(10px);
+}
+
+.edit-modal.hidden {
+  display: none;
+}
+
+.edit-modal-box {
+  width: min(92vw, 520px);
+  max-height: 85vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(
+    180deg,
+    rgba(12,18,28,0.96),
+    rgba(8,12,22,0.96)
+  );
+
+  border-radius: 18px;
+  padding: 18px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.75),
+    0 0 40px rgba(56,189,248,0.2);
+}
+
+/* Scroll interno */
+.edit-modal-box > * {
+  flex-shrink: 0;
+}
+
+.edit-modal-box textarea {
+  min-height: 90px;
+}
+
+/* Inputs */
+.edit-modal-box input,
+.edit-modal-box textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   MODAL ACTIONS
+========================= */
+
+.edit-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* BOTONES */
+.edit-actions button {
+  flex: 1;
+  height: 48px;
+  border-radius: 12px;
+  border: none;
+
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all .2s ease;
+}
+
+/* Guardar */
+.edit-actions button:first-child {
+  background: linear-gradient(135deg, #34d399, #16a34a);
+  color: #052e16;
+
+  box-shadow:
+    0 10px 30px rgba(34,197,94,.45);
+}
+
+/* Cancelar */
+.edit-actions button:last-child {
+  background: rgba(255,255,255,0.08);
+  color: rgba(226,232,240,.85);
+  border: 1px solid rgba(255,255,255,.18);
+}
+
+/* =========================
+   MODAL MOBILE UX
+========================= */
+
+@media (max-width: 768px) {
+
+  .edit-modal-box {
+    width: calc(100% - 24px);
+    max-height: 90vh;
+  }
+
+  .edit-actions {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(8,12,22,0.95)
+    );
+    padding-top: 12px;
+  }
+}

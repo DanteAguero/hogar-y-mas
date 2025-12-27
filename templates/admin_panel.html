@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ texts.admin_title if texts.admin_title else "Panel de administración" }}
+{% endblock %}
+
+{% block head %}
+
+<!-- ADMIN CSS -->
+<link rel="stylesheet" href="/static/css/admin.css">
+
+<script>
+  window.IS_ADMIN_PANEL = true;
+  window.CATEGORIES = {{ categories | tojson }};
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="app-container admin-page">
+
+  <!-- HEADER -->
+  <header class="admin-header">
+    <h1 class="admin-title">
+      {{ texts.admin_title if texts.admin_title else "Panel de administración" }}
+    </h1>
+
+    <a href="/admin_logout" class="admin-logout">
+      {{ texts.admin_logout if texts.admin_logout else "Cerrar sesión" }}
+    </a>
+  </header>
+
+  <!-- NUEVO PRODUCTO -->
+  <section class="admin-card">
+
+    <h2 class="admin-section-title">
+      {{ texts.admin_new_product if texts.admin_new_product else "Nuevo producto" }}
+    </h2>
+
+    <!-- GRID PRINCIPAL -->
+<div class="admin-form-grid">
+  <input id="new_title" placeholder="Nombre del producto">
+  <input id="new_price" type="number" min="0" placeholder="Precio">
+
+  <!-- GÉNERO -->
+  <select id="new_gender">
+    <option value="">Género</option>
+    <option value="masculina">Masculina</option>
+    <option value="femenina">Femenina</option>
+  </select>
+
+  <!-- CATEGORÍA -->
+  <select id="new_category" disabled>
+    <option value="">Categoría</option>
+  </select>
+
+  <input id="new_stock" type="number" min="0" placeholder="Stock">
+</div>
+
+<div class="admin-form-grid">
+  <input id="new_sizes" placeholder="Talles (S,M,L,XL,XXL)">
+  <input id="new_color" placeholder="Color">
+</div>
+
+<textarea
+  id="new_description"
+  class="admin-textarea"
+  placeholder="Descripción del producto"
+></textarea>
+
+<!-- BADGES -->
+<div class="admin-badges">
+  <label class="admin-label">Badges</label>
+  <div id="badgesContainer" class="badge-selector"></div>
+</div>
+   
+    <!-- IMÁGENES -->
+    <div class="admin-images">
+      {% for i in range(1,5) %}
+      <div>
+        <input type="file" id="image{{ i }}" accept="image/*">
+        <img id="prev{{ i }}" src="/static/assets/placeholders/no-image.png">
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- BOTÓN -->
+    <button class="admin-primary-btn" onclick="addStock()">
+      Publicar producto
+    </button>
+
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section class="admin-card">
+    <h2 class="admin-section-title">Productos publicados</h2>
+    <div id="cardsGrid" class="cards-grid"></div>
+  </section>
+
+</section>
+
+<!-- MODAL EDITAR PRODUCTO -->
+<div id="editModal" class="edit-modal hidden">
+  <div class="edit-modal-box">
+
+    <h3>Editar producto</h3>
+
+    <input type="hidden" id="edit_id">
+
+    <input id="edit_title" placeholder="Nombre del producto">
+    <input id="edit_price" type="number" placeholder="Precio">
+    <input id="edit_stock" type="number" placeholder="Stock">
+    <input id="edit_sizes" placeholder="Talles (S,M,L,XL,XXL)">
+    <input id="edit_color" placeholder="Color">
+
+    <textarea id="edit_description" placeholder="Descripción"></textarea>
+
+    <div class="edit-actions">
+      <button onclick="saveEdit()">Guardar cambios</button>
+      <button onclick="closeEdit()">Cancelar</button>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

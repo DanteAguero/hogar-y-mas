@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block content %}
+<section class="product-page app-container tech-detail">
+
+  <!-- BACK -->
+  <a href="/" class="back-icon" aria-label="Volver al catálogo"></a>
+  
+  <div class="product-layout-aaa">
+
+    <!-- GALERÍA -->
+    <div class="product-gallery-aaa">
+
+      <!-- THUMBS (PC / ocultas en mobile por CSS) -->
+      <div class="product-thumbs">
+        {% for img in item.images %}
+          <img src="{{ img }}" alt="{{ item.title }}">
+        {% endfor %}
+      </div>
+
+      <!-- IMAGEN PRINCIPAL -->
+      <div class="product-main-image">
+
+        <!-- BADGES -->
+        {% if item.badges %}
+        <div
+          class="product-badges"
+          id="productBadges"
+          data-badges='{{ item.badges | tojson }}'>
+        </div>
+        {% endif %}
+
+        <img
+          id="mainImage"
+          src="{{ item.images[0] if item.images else '/static/assets/backgrounds/fondomarket.jpg' }}"
+          alt="{{ item.title }}"
+        >
+
+        <!-- DOTS MOBILE -->
+        {% if item.images|length > 1 %}
+        <div class="mobile-image-dots">
+          {% for img in item.images %}
+            <span
+              class="dot {% if loop.index0 == 0 %}active{% endif %}"
+              data-img="{{ img }}">
+            </span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="product-info-aaa">
+
+      {% if item.category %}
+        <div class="product-category">{{ item.category }}</div>
+      {% endif %}
+
+      <h1 class="product-title-aaa">{{ item.title }}</h1>
+
+      <div class="product-price-aaa">
+        {{ item.price | price_ars }}
+      </div>
+	  
+	  <!-- 🔑 LABEL DESCRIPCIÓN -->
+	  <span class="product-section-label">Descripción</span>
+
+      {% if item.color %}
+        <div class="product-attribute">
+          <strong>Color:</strong> {{ item.color }}
+        </div>
+      {% endif %}
+
+      <!-- TALLES -->
+      {% if item.sizes %}
+      <div class="product-attribute">
+        <strong>Talle</strong>
+        <div class="sizes-grid">
+          {% for size in item.sizes %}
+            <div class="size-pill">{{ size }}</div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- DESCRIPCIÓN -->
+      <div class="product-description-aaa">
+        {{ item.description }}
+      </div>
+
+      <!-- CTA -->
+      <a
+        href="https://wa.me/5492616582829?text=Hola,%20quiero%20consultar%20por%20{{ item.title }}"
+        target="_blank"
+        class="product-cta-aaa"
+      >
+        Consultar por WhatsApp
+      </a>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

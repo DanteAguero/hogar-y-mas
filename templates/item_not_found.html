@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Producto no encontrado | Tienda Online{% endblock %}
+
+{% block content %}
+
+<section class="not-found-page app-container">
+
+    <div class="not-found-box">
+
+        <h1 class="not-found-title">
+            Producto no encontrado
+        </h1>
+
+        <p class="not-found-text">
+            El producto con identificador <strong>{{ item_id }}</strong> no existe,
+            fue eliminado o ya no está disponible en el catálogo.
+        </p>
+
+        <p class="not-found-subtext">
+            Verificá que el enlace sea correcto o volvé al catálogo principal.
+        </p>
+
+        <a href="/" class="not-found-action">
+            Volver al catálogo
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

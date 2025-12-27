@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Verificación de seguridad | Tienda Online{% endblock %}
+
+{% block head %}
+<style>
+
+/* =========================
+   PÁGINA 2FA ADMIN
+========================= */
+.admin-login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Caja 2FA */
+.admin-login-box {
+    width: 100%;
+    max-width: 420px;
+    padding: 36px;
+    border-radius: 20px;
+    background: rgba(20,20,20,0.85);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    animation: fadeUp .5s ease;
+}
+
+/* Animación */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Títulos */
+.admin-login-title {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.admin-login-sub {
+    font-size: 14px;
+    text-align: center;
+    opacity: .75;
+    margin-bottom: 26px;
+}
+
+/* Input */
+.admin-login-input {
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-align: center;
+}
+
+.admin-login-input:focus {
+    outline: none;
+    border-color: #3bd671;
+}
+
+/* Botón */
+.admin-login-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: #3bd671;
+    color: #0b1a12;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.admin-login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(59,214,113,.45);
+}
+
+/* Error */
+.admin-login-error {
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #ff6b6b;
+    text-align: center;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="admin-login-page">
+
+    <div class="admin-login-box">
+
+        <h1 class="admin-login-title">
+            Verificación de seguridad
+        </h1>
+
+        <p class="admin-login-sub">
+            Ingresá el código de 6 dígitos generado por tu app autenticadora
+        </p>
+
+        {% if error %}
+            <div class="admin-login-error">{{ error }}</div>
+        {% endif %}
+
+        <form action="{{ url_for('admin_2fa') }}" method="POST">
+
+            <input
+                type="text"
+                name="code"
+                class="admin-login-input"
+                placeholder="● ● ● ● ● ●"
+                inputmode="numeric"
+                maxlength="6"
+                required
+            >
+
+            <button class="admin-login-btn">
+                Verificar
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

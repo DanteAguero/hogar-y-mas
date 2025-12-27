@@ -1,0 +1,7 @@
+{# templates/item_detail.html #}
+
+{% if DEMO_SLUG == "urban" %}
+    {% include "item_detail_urban.html" %}
+{% else %}
+    {% include "item_detail_basic.html" %}
+{% endif %}

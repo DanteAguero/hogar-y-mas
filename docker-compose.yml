@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  stock_db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: user_veritas
+      POSTGRES_PASSWORD: password_segura
+      POSTGRES_DB: stock_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  stock_backend:
+    build: .
+    restart: always
+    command: ["/wait-for-postgres.sh", "stock_db", "python", "app.py"]
+
+    ports:
+      - "80:8080"
+
+    environment:
+      - POSTGRES_USER=user_veritas
+      - POSTGRES_PASSWORD=password_segura
+      - DATABASE_URL=postgresql://user_veritas:password_segura@stock_db:5432/stock_db
+      - APP_PORT=8080
+
+      # 🔐 Variables de seguridad del Admin
+      - SECRET_KEY=cele17malen15lauti17caro40dante39
+      - ADMIN_USERNAME=Caro3070
+      - ADMIN_PASSWORD=33737@#BAT
+      - ADMIN_TOTP_SECRET=JENYAHALT7ZZDXIORDY6SJA77CPQUW37
+
+    volumes:
+      - ./templates:/app/templates
+      - ./static:/app/static
+      - ./app.py:/app/app.py
+      - ./wait-for-postgres.sh:/wait-for-postgres.sh
+
+volumes:
+  db_data:

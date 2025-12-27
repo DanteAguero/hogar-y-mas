@@ -1,0 +1,1550 @@
+/* =========================================================
+   HOGARYMÁS.CSS —
+========================================================= */
+
+/* =======================
+   VARIABLES — HOGAR Y MÁS
+======================= */
+:root {
+  /* Fondo */
+  --bg-main: #f7f3ee;                 /* beige cálido */
+  --bg-soft: rgba(215, 198, 180, 0.35); /* capas suaves pastel */
+  --bg-card: rgba(255, 250, 245, 0.88); /* cards claras tipo glass */
+
+  /* Acentos */
+  --accent: #d9c2aa;                  /* beige rosado */
+  --accent-soft: rgba(217, 194, 170, 0.35);
+
+  /* Bordes */
+  --border: rgba(180, 155, 130, 0.28);
+
+  /* Texto */
+  --text-main: #4b4036;               /* marrón cálido */
+  --text-muted: #7b6a5c;              /* texto secundario */
+}
+
+/* =======================
+   GOOGLE FONTS — HOGAR Y MÁS
+======================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+/* =======================
+   TYPOGRAPHY — HOGAR Y MÁS
+======================= */
+body {
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Títulos con identidad hogar */
+.store-title,
+.product-title-aaa {
+  font-family: "Playfair Display", "Nunito", serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+/* =======================
+   BASE FONDO HOGAR Y MÁS
+======================= */
+body {
+  background:
+    radial-gradient(
+      900px 500px at 20% 10%,
+      rgba(234, 216, 200, 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 400px at 80% 20%,
+      rgba(217, 194, 170, 0.45),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      #fffaf6 0%,
+      #f7f3ee 55%,
+      #efe7dd 100%
+    );
+
+  color: var(--text-main);
+}
+
+/* =======================
+   HERO TÍTULOS — HOGAR Y MÁS
+======================= */
+.store-title {
+  font-size: clamp(42px, 6vw, 64px);
+  font-weight: 700;
+
+  letter-spacing: -0.01em;
+  text-transform: none;
+
+  /* Marrón cálido elegante */
+  color: #4b4036;
+
+  /* Glow cálido y difuso */
+  text-shadow:
+    0 2px 14px rgba(217, 194, 170, 0.45);
+}
+
+.store-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  /* Beige tostado suave */
+  color: #8a7766;
+}
+
+/* =======================
+   SEARCH — HOGAR Y MÁS
+======================= */
+.top-search-bar {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 32px auto 16px;
+  max-width: 760px;
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-wrapper input {
+  width: 100%;
+  padding: 18px 20px 18px 52px;
+  border-radius: 999px;
+
+  /* Glass pastel cálido */
+  background: rgba(255, 250, 245, 0.9);
+  backdrop-filter: blur(14px);
+
+  border: 1px solid var(--border);
+
+  color: var(--text-main);
+  font-size: 16px;
+
+  outline: none;
+
+  box-shadow:
+    inset 0 0 14px rgba(255,255,255,0.35),
+    0 14px 38px rgba(120, 90, 60, 0.25);
+
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
+}
+
+.search-wrapper input::placeholder {
+  color: #9b8a79;
+}
+
+.search-wrapper input:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 14px rgba(255,255,255,0.45),
+    0 18px 44px rgba(120, 90, 60, 0.32);
+}
+
+.search-wrapper input:focus {
+  background: rgba(255, 246, 238, 0.98);
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 0 3px rgba(217, 194, 170, 0.45),
+    0 22px 52px rgba(120, 90, 60, 0.38);
+}
+
+/* Botón filtros */
+.toggle-filters-btn {
+  padding: 12px 20px;
+  border-radius: 999px;
+
+  background: rgba(255, 250, 245, 0.85);
+  border: 1px solid var(--border);
+
+  color: var(--text-main);
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 22px rgba(120, 90, 60, 0.28);
+
+  transition:
+    background .25s ease,
+    transform .2s ease,
+    box-shadow .25s ease;
+}
+
+.toggle-filters-btn:hover {
+  background: rgba(255, 242, 232, 0.95);
+  transform: translateY(-1px);
+  box-shadow:
+    0 12px 28px rgba(120, 90, 60, 0.35);
+}
+
+/* =======================
+   CARDS — HOGAR Y MÁS
+======================= */
+
+.card-body {
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.urban-card {
+  position: relative;
+  overflow: visible;
+
+  /* Card clara con profundidad */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 252, 248, 0.98),
+    rgba(247, 241, 234, 0.98)
+  );
+
+  border-radius: 20px;
+
+  /* Borde cálido separador */
+  border: 1px solid rgba(200, 175, 150, 0.35);
+
+  padding: 16px;
+
+  /* Profundidad suave y glow pastel */
+  box-shadow:
+    0 18px 48px rgba(120, 90, 60, 0.32),
+    0 0 0 1px rgba(255,255,255,0.45),
+    0 0 26px rgba(217, 194, 170, 0.35);
+
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+/* Hover — lift elegante */
+.urban-card:hover {
+  transform: translateY(-6px);
+  z-index: 10;
+
+  border-color: rgba(217, 194, 170, 0.75);
+
+  box-shadow:
+    0 26px 62px rgba(120, 90, 60, 0.42),
+    0 0 42px rgba(217, 194, 170, 0.45);
+}
+
+/* Overlay suave (no tapa badges) */
+.urban-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 2;
+
+  background:
+    radial-gradient(
+      420px 160px at top left,
+      rgba(234, 216, 200, 0.55),
+      transparent 65%
+    );
+
+  pointer-events: none;
+}
+
+/* =======================
+   MEDIA (IMAGEN) — HOGAR Y MÁS
+======================= */
+
+.card-media {
+  position: relative;
+  overflow: hidden; /* 🔑 SOLO la imagen */
+  border-radius: 14px;
+  z-index: 1;
+
+  /* Marco claro y cálido */
+  background: rgba(255, 250, 245, 0.9);
+}
+
+.card-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+
+  transition:
+    transform .45s ease,
+    filter .35s ease;
+}
+
+/* Hover suave y natural */
+.urban-card:hover .card-media img {
+  transform: scale(1.03);
+  filter: brightness(1.08) saturate(1.03);
+}
+
+@media (max-width: 640px) {
+  .card-media img {
+    height: 150px;
+  }
+}
+
+/* =======================
+   BADGES — HOGAR Y MÁS
+======================= */
+
+.card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 4;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 12px;
+  white-space: nowrap;
+  max-width: max-content;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  /* Glass pastel cálido */
+  background: rgba(255, 246, 238, 0.95);
+  color: #6b5746;
+
+  border: 1px solid rgba(217, 194, 170, 0.65);
+
+  box-shadow:
+    0 6px 16px rgba(120, 90, 60, 0.28),
+    0 0 12px rgba(217, 194, 170, 0.35);
+
+  backdrop-filter: blur(8px);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    filter .25s ease;
+}
+
+/* Hover del badge sincronizado */
+.urban-card:hover .card-badge {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+/* =======================
+   VARIANTES — HOGAR Y MÁS
+======================= */
+
+/* TOP · favorito / destacado */
+.card-badge.badge-top {
+  background: rgba(255, 236, 220, 0.95);
+  color: #8a5a3c;
+  border-color: rgba(231, 184, 165, 0.75);
+
+  box-shadow:
+    0 0 14px rgba(231, 184, 165, 0.45);
+}
+
+/* NEW · recién llegado */
+.card-badge.badge-new {
+  background: rgba(236, 245, 240, 0.95);
+  color: #4f7a63;
+  border-color: rgba(183, 212, 194, 0.75);
+
+  box-shadow:
+    0 0 14px rgba(183, 212, 194, 0.45);
+}
+
+/* =======================
+   BUTTONS — HOGAR Y MÁS
+======================= */
+button,
+.gender-btn,
+.filter-chips button {
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  /* Texto cálido */
+  color: var(--text-main);
+
+  /* Interacción suave y elegante */
+  transition:
+    background .25s ease,
+    color .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
+}
+
+/* =======================
+   PRECIO — HOGAR Y MÁS
+======================= */
+.card-price {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+
+  color: #d28b5c; /* durazno */
+
+  text-shadow:
+    0 1px 6px rgba(210, 139, 92, 0.35);
+}
+
+/* =======================
+   ITEM DETAIL — HOGAR Y MÁS
+======================= */
+
+.product-page {
+  padding: 40px 26px;
+}
+
+/* ===== Layout ===== */
+.product-layout-aaa {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: flex-start;
+}
+
+/* ===== Gallery ===== */
+.product-gallery-aaa {
+  display: flex;
+  gap: 16px;
+}
+
+.product-thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.product-thumbs img {
+  width: 72px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: 14px;
+  cursor: pointer;
+
+  opacity: .55;
+  background: rgba(255, 250, 245, 0.85);
+  backdrop-filter: blur(8px);
+
+  transition:
+    opacity .25s ease,
+    outline .25s ease,
+    transform .25s ease;
+}
+
+.product-thumbs img.active,
+.product-thumbs img:hover {
+  opacity: 1;
+  outline: 2px solid var(--accent);
+  transform: scale(1.05);
+}
+
+.product-main-image img {
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 22px;
+
+  background: rgba(255, 250, 245, 0.9);
+  backdrop-filter: blur(10px);
+
+  transition: transform .6s ease;
+}
+
+.product-main-image:hover img {
+  transform: scale(1.03);
+}
+
+/* ===== Info ===== */
+.product-info-aaa {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-left: 6px;
+}
+
+/* categoría */
+.product-category {
+  font-size: 13px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #9a8572;
+}
+
+/* título */
+.product-title-aaa {
+  font-size: 28px;
+  font-weight: 600;
+
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+
+  color: var(--text-main);
+}
+
+/* precio */
+.product-price-aaa {
+  font-size: 30px;
+  font-weight: 800;
+
+  color: #d07a45; /* durazno un poco más fuerte */
+
+  text-shadow:
+    0 2px 10px rgba(208, 122, 69, 0.4);
+}
+
+.product-price-aaa::after {
+  content: " ARS";
+  font-size: 14px;
+  opacity: .6;
+  margin-left: 4px;
+}
+
+/* ===== Divider ===== */
+.product-divider {
+  width: 46px;
+  height: 2px;
+  background: rgba(217, 194, 170, 0.65);
+  margin: 8px 0;
+}
+
+/* ===== Sizes ===== */
+.sizes-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7b6a5c;
+}
+
+.sizes-grid {
+  display: flex;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.size-pill {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(217, 194, 170, 0.55);
+  background: rgba(255, 250, 245, 0.9);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+  color: var(--text-main);
+
+  transition: all .25s ease;
+}
+
+.size-pill:hover {
+  background: #f7f1ea;
+  color: #4b4036;
+  transform: translateY(-2px);
+}
+
+/* ===== Description ===== */
+.product-description,
+.product-description-aaa {
+  font-size: 14.5px;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+
+  color: #7b6a5c;
+
+  max-width: 420px;
+}
+
+/* ===== CTA ===== */
+.product-cta-aaa {
+  margin-top: 34px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 34px;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    135deg,
+    #e7cdb5,
+    #d9c2aa
+  );
+  color: #4b4036;
+
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: .6px;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 16px 42px rgba(120, 90, 60, 0.35),
+    inset 0 -2px 0 rgba(120, 90, 60, 0.18);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    filter .25s ease;
+}
+
+.product-cta-aaa:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow:
+    0 24px 62px rgba(120, 90, 60, 0.45),
+    inset 0 -1px 0 rgba(120, 90, 60, 0.12);
+}
+
+.product-cta-aaa:active {
+  transform: translateY(0);
+  box-shadow:
+    0 12px 30px rgba(120, 90, 60, 0.3),
+    inset 0 2px 4px rgba(120, 90, 60, 0.25);
+}
+
+/* =======================
+   PRODUCT DESCRIPTION LABEL — HOGAR Y MÁS
+======================= */
+
+.product-section-label {
+  display: inline-block;
+  margin-top: 14px;
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  /* Texto cálido y editorial */
+  color: #8a7766;
+}
+
+.product-section-label::after {
+  content: "";
+  display: block;
+  margin-top: 6px;
+
+  width: 32px;
+  height: 2px;
+  border-radius: 2px;
+
+  /* Línea pastel elegante */
+  background: linear-gradient(
+    90deg,
+    rgba(217, 194, 170, 0.9),
+    rgba(217, 194, 170, 0.15),
+    transparent
+  );
+}
+
+/* =======================
+   RESPONSIVE — ITEM DETAIL (HOGAR Y MÁS)
+======================= */
+@media (max-width: 900px) {
+  .product-layout-aaa {
+    grid-template-columns: 1fr;
+    gap: 40px; /* un poco más de aire */
+  }
+
+  .product-info-aaa {
+    padding-left: 0;
+  }
+
+  /* Mejor lectura y presencia en mobile */
+  .product-main-image img {
+    max-height: 58vh;
+  }
+}
+
+/* =======================
+   MICRO UX GLOBAL — HOGAR Y MÁS
+======================= */
+a,
+button {
+  transition:
+    background .25s ease,
+    box-shadow .25s ease,
+    color .25s ease,
+    transform .18s ease;
+}
+
+/* =======================
+   SEARCH — HOGAR Y MÁS (VISIBLE)
+======================= */
+
+.street-search {
+  position: relative;
+}
+
+/* Input base */
+.street-search input {
+  width: 100%;
+  height: 56px;
+
+  padding: 0 26px;
+  border-radius: 18px;
+
+  /* Borde cálido */
+  border: 1px solid rgba(217, 194, 170, 0.65);
+
+  /* Glass pastel claro */
+  background: rgba(255, 250, 245, 0.92);
+  backdrop-filter: blur(14px);
+
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 500;
+
+  outline: none;
+  cursor: text;
+
+  /* Profundidad suave y elegante */
+  box-shadow:
+    0 14px 38px rgba(120, 90, 60, 0.28),
+    inset 0 1px 0 rgba(255,255,255,0.55);
+
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
+}
+
+/* Placeholder */
+.street-search input::placeholder {
+  color: #9a8572;
+  font-weight: 400;
+}
+
+/* Hover */
+.street-search input:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 18px 46px rgba(120, 90, 60, 0.35);
+}
+
+/* Focus — Hogar y Más */
+.street-search input:focus {
+  background: rgba(255, 246, 238, 0.98);
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 0 3px rgba(217, 194, 170, 0.45),
+    0 22px 54px rgba(120, 90, 60, 0.42);
+}
+
+/* =======================
+   FILTER CHIPS — OFF
+======================= */
+
+/* Desactivados completamente */
+.filter-chips {
+  display: none !important;
+}
+
+/* =======================
+   SEARCH SUGGESTIONS — OFF
+======================= */
+
+/* Apagar sugerencias siempre */
+.search-suggestions {
+  display: none !important;
+}
+
+/* =======================
+   SEARCH CONTAINER (LAYOUT ONLY)
+======================= */
+
+.street-search-container {
+  position: relative;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================================
+   ITEM DETAIL — HOGAR Y MÁS (BASE)
+========================================= */
+
+.tech-detail .product-gallery-aaa {
+  position: relative;
+}
+
+/* Imagen principal */
+.tech-detail .product-main-image img {
+  cursor: zoom-in;
+
+  transition:
+    transform .45s ease,
+    filter .35s ease;
+}
+
+/* Hover — zoom suave y luminoso */
+.tech-detail .product-main-image img:hover {
+  transform: scale(1.03);
+  filter: brightness(1.08) saturate(1.02);
+}
+
+/* =======================
+   FOOTER — HOGAR Y MÁS
+======================= */
+
+.footer {
+  margin-top: 100px;
+  padding: 32px 22px 38px;
+  text-align: center;
+
+  color: #7b6a5c;
+
+  /* Fondo integrado claro */
+  background:
+    linear-gradient(
+      180deg,
+      rgba(247, 243, 238, 0.85),
+      rgba(239, 231, 221, 0.95)
+    );
+
+  border-top: 1px solid rgba(217, 194, 170, 0.45);
+
+  box-shadow:
+    0 -18px 46px rgba(120, 90, 60, 0.28);
+
+  backdrop-filter: blur(10px);
+}
+
+/* Texto destacado */
+.footer strong {
+  color: #4b4036;
+  font-weight: 600;
+}
+
+/* Links */
+.footer a {
+  color: #8a5a3c;
+  font-weight: 500;
+  text-decoration: none;
+
+  transition:
+    color .2s ease,
+    text-shadow .2s ease;
+}
+
+.footer a:hover {
+  color: #6b4f3b;
+  text-shadow: 0 0 6px rgba(217, 194, 170, 0.45);
+  text-decoration: underline;
+}
+
+/* =======================
+   FOOTER — RESPONSIVE
+======================= */
+
+@media (max-width: 768px) {
+  .footer {
+    margin-top: 60px;
+    padding: 26px 16px 30px;
+
+    /* En mobile se integra de forma natural */
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    border-top: none;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .footer-col {
+    align-items: center;
+  }
+}
+
+/* =======================
+   BADGES — HOGAR Y MÁS (HIGHLIGHT)
+   ✔ Base sin identidad
+   ✔ Variantes con color real
+======================= */
+
+.card-badge {
+  position: relative;
+
+  padding: 6px 14px;
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+
+  backdrop-filter: blur(8px);
+  border: 1px solid transparent;
+
+  /* 🔑 Base NEUTRA — no pisa colores */
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+
+  pointer-events: none;
+
+  transition:
+    transform .25s ease,
+    filter .25s ease,
+    box-shadow .25s ease;
+}
+
+/* ===== NEW — verde suave (visible) ===== */
+.card-badge-new {
+  background: rgba(220, 240, 230, 0.95);
+  color: #3f6f5a;
+
+  border-color: rgba(150, 200, 175, 0.75);
+
+  box-shadow:
+    0 0 14px rgba(150, 200, 175, 0.45);
+}
+
+/* ===== TOP — durazno premium ===== */
+.card-badge-top {
+  background: rgba(255, 236, 220, 0.95);
+  color: #8a5a3c;
+
+  border-color: rgba(231, 184, 165, 0.75);
+
+  box-shadow:
+    0 0 14px rgba(231, 184, 165, 0.45);
+}
+
+/* ===== SALE / LIQUIDACIÓN — ROJO REAL ===== */
+.card-badge-sale {
+  background: rgba(230, 170, 170, 0.98);
+  color: #6b1f1f;
+
+  border-color: rgba(200, 90, 90, 0.95);
+
+  box-shadow:
+    0 0 18px rgba(200, 90, 90, 0.65);
+}
+
+/* ===== LIQUIDACIÓN — MISMO ROJO QUE SALE ===== */
+.card-badge-liquidacion {
+  background: rgba(230, 170, 170, 0.98);
+  color: #6b1f1f;
+
+  border-color: rgba(200, 90, 90, 0.95);
+
+  box-shadow:
+    0 0 18px rgba(200, 90, 90, 0.65);
+}
+
+/* ===== PROMO — marrón suave ===== */
+.card-badge-promo {
+  background: rgba(235, 220, 210, 0.95);
+  color: #6b4f3b;
+
+  border-color: rgba(200, 170, 150, 0.75);
+
+  box-shadow:
+    0 0 14px rgba(200, 170, 150, 0.45);
+}
+
+/* Posición del badge en cards */
+.card-img-wrapper .card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+/* Hover sincronizado */
+.urban-card:hover .card-badge {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+/* =========================
+   PAGINACIÓN — HOGAR Y MÁS (HIDDEN)
+========================= */
+
+.pagination {
+  display: none;
+}
+
+/* =======================
+   ZOOM SUAVE — HOGAR Y MÁS
+========================== */
+
+/* Zoom elegante tipo catálogo */
+.gallery-main:hover .gallery-image {
+  transform: scale(1.04);
+}
+
+/* Mobile touch feedback */
+@media (max-width: 768px) {
+  .gallery-main:active .gallery-image {
+    transform: scale(1.03);
+  }
+}
+
+/* =========================================
+   BOTÓN VOLVER — HOGAR Y MÁS
+========================================= */
+
+.tech-detail .back-icon {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+
+  padding: 8px 14px;
+
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .02em;
+
+  color: #6b5746;
+  text-decoration: none;
+
+  /* Glass pastel cálido */
+  background: rgba(255, 250, 245, 0.9);
+  backdrop-filter: blur(10px);
+
+  border-radius: 10px;
+  border: 1px solid rgba(217, 194, 170, 0.55);
+
+  box-shadow:
+    0 8px 22px rgba(120, 90, 60, 0.28);
+
+  z-index: 30;
+
+  transition:
+    color .2s ease,
+    background .2s ease,
+    transform .2s ease,
+    box-shadow .25s ease;
+}
+
+.tech-detail .back-icon::before {
+  content: "←";
+  margin-right: 6px;
+  opacity: .6;
+}
+
+/* Hover solo desktop */
+@media (hover: hover) {
+  .tech-detail .back-icon:hover {
+    color: #4b4036;
+    background: rgba(255, 246, 238, 0.98);
+    transform: translateX(-2px);
+
+    box-shadow:
+      0 12px 30px rgba(120, 90, 60, 0.38);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .tech-detail .back-icon {
+    top: 14px;
+    left: 14px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/* =======================
+   GENDER FILTER — OFF (TECH)
+======================= */
+
+.gender-filter {
+  display: none !important;
+}
+/* ==========================================================
+   ITEM DETAIL — HOGAR Y MÁS GALLERY (SCOPED)
+========================================================== */
+
+/* Contenedor imagen principal */
+.tech-detail .product-main-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+
+  /* Fondo claro tipo catálogo */
+  background: rgba(255, 250, 245, 0.9);
+  backdrop-filter: blur(10px);
+}
+
+/* Imagen principal */
+.tech-detail #mainImage {
+  width: 100%;
+  display: block;
+
+  transition:
+    transform .6s ease,
+    opacity .35s ease,
+    filter .35s ease;
+
+  cursor: zoom-in;
+}
+
+/* ======================
+   THUMBS (DESKTOP ONLY)
+====================== */
+
+.tech-detail .product-thumbs {
+  gap: 14px;
+}
+
+.tech-detail .product-thumbs img {
+  width: 58px;
+  height: 72px;
+  object-fit: cover;
+
+  border-radius: 14px;
+
+  /* Marco claro y cálido */
+  background: rgba(255, 250, 245, 0.9);
+  backdrop-filter: blur(10px);
+
+  opacity: .6;
+  transform: scale(.94);
+
+  box-shadow:
+    0 6px 18px rgba(120, 90, 60, 0.28);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease,
+    box-shadow .25s ease,
+    filter .25s ease;
+}
+
+.tech-detail .product-thumbs img:hover {
+  opacity: .9;
+  transform: scale(1);
+  filter: brightness(1.06);
+}
+
+/* Thumb activo */
+.tech-detail .product-thumbs img.active {
+  opacity: 1;
+  transform: scale(1.06);
+
+  box-shadow:
+    0 14px 32px rgba(120, 90, 60, 0.38),
+    0 0 12px rgba(217, 194, 170, 0.45);
+}
+
+/* ======================
+   MOBILE — CLEAN
+====================== */
+@media (max-width: 768px) {
+
+  /* ocultamos thumbs en mobile */
+  .tech-detail .product-thumbs {
+    display: none;
+  }
+
+  /* cursor normal en mobile */
+  .tech-detail #mainImage {
+    cursor: default;
+  }
+}
+
+/* ======================
+   ITEM DETAIL — NO DOTS
+====================== */
+.tech-detail .mobile-image-dots {
+  display: none !important;
+}
+
+/* ======================
+   ITEM DETAIL — PC DOCK THUMBS (HOGAR Y MÁS)
+====================== */
+@media (min-width: 769px) {
+
+  .tech-detail .product-thumbs {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 26px;
+  }
+
+  .tech-detail .product-thumbs img {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+
+    opacity: .6;
+    transform: scale(.94);
+
+    transition:
+      transform .25s ease,
+      opacity .25s ease,
+      box-shadow .25s ease,
+      filter .25s ease;
+  }
+
+  .tech-detail .product-thumbs img:hover {
+    transform: scale(1.08);
+    opacity: .9;
+
+    box-shadow:
+      0 10px 26px rgba(120, 90, 60, 0.32);
+  }
+
+  .tech-detail .product-thumbs img.active {
+    transform: scale(1.15);
+    opacity: 1;
+
+    box-shadow:
+      0 14px 34px rgba(120, 90, 60, 0.42),
+      0 0 14px rgba(217, 194, 170, 0.45);
+  }
+}
+
+/* ==========================================================
+   WHATSAPP STICKY — HOGAR Y MÁS (MOBILE)
+========================================================== */
+
+/* Ocultar CTA normal en mobile */
+@media (max-width: 768px) {
+  .tech-detail .product-cta-aaa {
+    display: none;
+  }
+}
+
+/* Sticky base (no visible por defecto) */
+.whatsapp-sticky {
+  display: none;
+}
+
+/* Sticky solo mobile */
+@media (max-width: 768px) {
+  .whatsapp-sticky {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: calc(100% - 32px);
+    max-width: 420px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px; /* más amable */
+
+    /* WhatsApp integrado al theme */
+    background: linear-gradient(
+      135deg,
+      #e7cdb5,
+      #d9c2aa
+    );
+    color: #4b4036;
+
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .3px;
+
+    text-decoration: none;
+
+    box-shadow:
+      0 16px 40px rgba(120, 90, 60, 0.35),
+      0 0 18px rgba(217, 194, 170, 0.35);
+
+    z-index: 100;
+
+    transition:
+      transform .2s ease,
+      box-shadow .25s ease,
+      filter .2s ease;
+  }
+
+  /* Feedback táctil */
+  .whatsapp-sticky:active {
+    transform: translateX(-50%) scale(0.97);
+    filter: brightness(0.96);
+    box-shadow:
+      0 12px 30px rgba(120, 90, 60, 0.28);
+  }
+
+  /* Espacio para que no tape el footer */
+  body {
+    padding-bottom: 90px;
+  }
+}
+
+/* ==========================================================
+   TECH — OCULTAR TALLES EN CATÁLOGO Y DETALLE
+========================================================== */
+
+.tech-detail .card-sizes,
+.tech-catalog .card-sizes {
+  display: none !important;
+}
+
+/* =======================
+   GRID PRODUCTOS — REAL
+======================= */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+/* 🔥 MOBILE: 2 PRODUCTOS POR FILA */
+@media (max-width: 640px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .card-media img {
+    height: 140px;
+    object-fit: contain;
+  }
+
+  .card-body {
+    min-height: auto;
+  }
+
+  .urban-card {
+    padding: 12px;
+  }
+}
+
+/* =========================================
+   CARD FORMAT FIX — COMPACT / MODERN
+========================================= */
+
+/* Imagen con ratio controlado */
+.card-media {
+  aspect-ratio: 1 / 1;   /* 🔑 cards más cuadradas */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Imagen interna */
+.card-media img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Texto más compacto */
+.card-body {
+  min-height: auto;
+  gap: 6px;
+}
+
+/* Título producto */
+.card-body h3 {
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+/* =========================================
+   MOBILE — AÚN MÁS COMPACTO
+========================================= */
+
+@media (max-width: 640px) {
+  .urban-card {
+    padding: 12px;
+  }
+
+  .card-media {
+    aspect-ratio: 1 / 1;
+  }
+
+  .card-price {
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   MOBILE CARD FIX — NO MORE TOWERS
+========================================= */
+
+@media (max-width: 640px) {
+
+  /* Card más baja */
+  .urban-card {
+    padding: 10px;
+  }
+
+  /* 🔑 Imagen MÁS ANCHA que ALTA */
+  .card-media {
+    aspect-ratio: 4 / 3;   /* ← CLAVE */
+  }
+
+  /* Imagen ajustada */
+  .card-media img {
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Texto más compacto */
+  .card-body {
+    gap: 4px;
+  }
+
+  .card-body h3 {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  .card-price {
+    font-size: 13px;
+  }
+}
+
+/* =======================
+   PRODUCT DESCRIPTION LABEL — HOGAR Y MÁS
+======================= */
+
+.product-section-label {
+  display: inline-block;
+  margin-top: 14px;
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  /* Beige editorial */
+  color: #8a7766;
+}
+
+/* Mini divisor elegante */
+.product-section-label::after {
+  content: "";
+  display: block;
+  margin-top: 6px;
+
+  width: 32px;
+  height: 2px;
+  border-radius: 2px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(217, 194, 170, 0.9),
+    rgba(217, 194, 170, 0.2),
+    transparent
+  );
+}
+
+/* =========================================
+   MOBILE CARD IMAGE RATIO — REAL FIX
+========================================= */
+
+@media (max-width: 640px) {
+
+  /* Card menos alta */
+  .urban-card {
+    padding: 10px;
+  }
+
+  /* 🔑 CONTENEDOR REAL DE IMAGEN */
+  .card-img-wrapper {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    border-radius: 14px;
+  }
+
+  /* Imagen ocupa todo el ratio */
+  .card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Texto más compacto */
+  .card-body {
+    gap: 4px;
+  }
+
+  .card-body h3 {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  .card-price {
+    font-size: 13px;
+  }
+}
+/* =========================================
+   BADGE POSITION FIX — STABLE
+========================================= */
+
+/* El badge se posiciona respecto a la card */
+.urban-card {
+  position: relative;
+}
+
+/* Badge fijo arriba de la card */
+.urban-card .card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+}
+
+/* 🔥 OVERRIDE FINAL — FORZAR LIQUIDACIÓN */
+.card-badge.card-badge-sale {
+  background: rgba(230, 170, 170, 0.98) !important;
+  color: #6b1f1f !important;
+  border-color: rgba(200, 90, 90, 0.95) !important;
+
+  box-shadow:
+    0 0 18px rgba(200, 90, 90, 0.65) !important;
+}

@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ texts.site_title
+       if texts.site_title
+       else texts.site_name
+       if texts.site_name
+       else "Tienda Online" }}
+{% endblock %}
+
+{% block content %}
+
+<section class="app-container tech-catalog">
+
+    <!-- HEADER / BRAND -->
+    <header class="store-header store-header--centered">
+        <h1 class="store-title">
+            {{ texts.site_title
+               if texts.site_title
+               else texts.site_name
+               if texts.site_name
+               else "Tienda Online" }}
+        </h1>
+
+        {% if texts.site_subtitle or texts.store_subtitle %}
+        <p class="store-subtitle">
+            {{ texts.site_subtitle
+               if texts.site_subtitle
+               else texts.store_subtitle }}
+        </p>
+        {% endif %}
+    </header>
+
+    <!-- STREET SEARCH (ROUND + SUGGESTIONS) -->
+    <div class="street-search-container">
+
+        <!-- SEARCH INPUT -->
+        <div class="street-search">
+            <input
+                type="text"
+                id="filter_title"
+                placeholder="{{ texts.search_placeholder
+                              if texts.search_placeholder
+                              else 'Buscar productos...' }}"
+                autocomplete="off"
+            >
+        </div>
+
+        <!-- SEARCH SUGGESTIONS -->
+        <div id="searchSuggestions" class="search-suggestions hidden">
+            <ul>
+                <li data-value="remeras">remeras</li>
+                <li data-value="hoodies">hoodies</li>
+                <li data-value="jeans">jeans</li>
+                <li data-value="bermudas">bermudas</li>
+                <li data-value="camisas">camisas</li>
+                <li data-value="outlet">outlet</li>
+            </ul>
+        </div>
+
+        <!-- FILTER CHIPS -->
+        <div class="filter-chips">
+
+            <button type="button" data-category="remeras">Remeras</button>
+            <button type="button" data-category="hoodies">Hoodies</button>
+            <button type="button" data-category="accesorios">Accesorios</button>
+
+            <button type="button" data-filter="new">Nuevo</button>
+            <button type="button" data-filter="sale">Sale</button>
+            <button type="button" data-filter="stock">En stock</button>
+
+        </div>
+
+    </div>
+
+    <!-- TÍTULO CATÁLOGO -->
+    <h2 class="catalog-title catalog-title--centered">
+        {{ texts.catalog_title if texts.catalog_title else 'Catálogo de productos' }}
+    </h2>
+
+    <!-- FILTRO GÉNERO -->
+    <div class="gender-filter">
+        <button class="gender-btn active" data-gender="">Todo</button>
+        <button class="gender-btn" data-gender="masculina">Masculina</button>
+        <button class="gender-btn" data-gender="femenina">Femenina</button>
+    </div>
+
+    <!-- GRID PRODUCTOS -->
+    <div id="cardsGrid" class="cards-grid"></div>
+
+    <!-- PAGINACIÓN -->
+    <div class="pagination">
+        <button onclick="changePage(-1)">
+            {{ texts.pagination_prev if texts.pagination_prev else 'Anterior' }}
+        </button>
+
+        <span id="pageInfo">Página 1</span>
+
+        <button onclick="changePage(1)">
+            {{ texts.pagination_next if texts.pagination_next else 'Siguiente' }}
+        </button>
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const input = document.getElementById("filter_title");
+  const suggestions = document.getElementById("searchSuggestions");
+  const container = document.querySelector(".street-search-container");
+
+  // Focus: activar modo búsqueda
+  input.addEventListener("focus", () => {
+    suggestions.classList.remove("hidden");
+    container.classList.add("search-active");
+  });
+
+  // Blur: volver a estado normal
+  input.addEventListener("blur", () => {
+    setTimeout(() => {
+      suggestions.classList.add("hidden");
+      container.classList.remove("search-active");
+    }, 150);
+  });
+
+  // Click en sugerencias
+  document.querySelectorAll(".search-suggestions li").forEach(item => {
+    item.addEventListener("click", () => {
+      input.value = item.dataset.value;
+      suggestions.classList.add("hidden");
+      container.classList.remove("search-active");
+    });
+  });
+
+  // Chips
+  document.querySelectorAll(".filter-chips button").forEach(btn => {
+    btn.addEventListener("click", () => {
+
+      document.querySelectorAll(".filter-chips button")
+        .forEach(b => b.classList.remove("active"));
+
+      btn.classList.add("active");
+
+      if (btn.dataset.category) {
+        input.value = btn.dataset.category;
+      }
+    });
+  });
+</script>
+{% endblock %}
