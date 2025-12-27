@@ -430,16 +430,13 @@ def admin_panel():
     conn = get_db_connection()
     cur = conn.cursor()
 
+    # 👉 CATEGORÍAS PADRE
     cur.execute("""
-        SELECT
-            c.id,
-            c.name,
-            c.slug,
-            p.slug AS parent_slug
-        FROM categories c
-        JOIN categories p ON p.id = c.parent_id
-        WHERE c.active = true
-        ORDER BY p.name, c.name
+        SELECT id, name
+        FROM categories
+        WHERE parent_id IS NULL
+        AND active = true
+        ORDER BY name
     """)
 
     categories = cur.fetchall()
@@ -451,8 +448,6 @@ def admin_panel():
         "admin_panel.html",
         categories=categories
     )
-
-
 # ==========================================================
 # API: CREAR PRODUCTO (solo admin)
 # ==========================================================
