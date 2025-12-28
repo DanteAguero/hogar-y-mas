@@ -351,15 +351,17 @@ function editItem(id) {
   alert("✏ Editar producto ID " + id + " (próximo paso)");
 }
 
-/* ==========================================================
-   ADMIN — CARGAR CATEGORÍAS (FIX DEFINITIVO)
-========================================================== */
+/* =========================
+   ADMIN — CATEGORÍAS + BADGES (ÚNICO BLOQUE)
+========================= */
+window.selectedBadges = [];
+
+/* CATEGORÍAS */
 async function loadCategories() {
   const select = document.getElementById("new_category");
   if (!select) return;
 
   select.innerHTML = '<option value="">Categoría</option>';
-  select.disabled = false;
 
   try {
     const res = await fetch("/api/categories");
@@ -371,31 +373,9 @@ async function loadCategories() {
       opt.textContent = cat.name;
       select.appendChild(opt);
     });
-
   } catch (e) {
     console.error("❌ Error cargando categorías", e);
   }
-}
-
-/* =========================
-   ADMIN — CATEGORÍAS + BADGES
-========================= */
-window.selectedBadges = [];
-
-/* CATEGORÍAS */
-async function loadCategories() {
-  const select = document.getElementById("new_category");
-  if (!select) return;
-
-  const res = await fetch("/api/categories");
-  const categories = await res.json();
-
-  categories.forEach(cat => {
-    const opt = document.createElement("option");
-    opt.value = cat.id;
-    opt.textContent = cat.name;
-    select.appendChild(opt);
-  });
 }
 
 /* BADGES */
@@ -405,27 +385,31 @@ async function loadBadges() {
 
   container.innerHTML = "";
 
-  const res = await fetch("/api/badges");
-  const badges = await res.json();
+  try {
+    const res = await fetch("/api/badges");
+    const badges = await res.json();
 
-  badges.forEach(b => {
-    const pill = document.createElement("div");
-    pill.className = "badge-pill";
-    pill.textContent = b.name;
+    badges.forEach(b => {
+      const pill = document.createElement("div");
+      pill.className = "badge-pill";
+      pill.textContent = b.name;
 
-    pill.addEventListener("click", () => {
-      pill.classList.toggle("active");
+      pill.addEventListener("click", () => {
+        pill.classList.toggle("active");
 
-      const idx = window.selectedBadges.indexOf(b.id);
-      if (idx === -1) {
-        window.selectedBadges.push(b.id);
-      } else {
-        window.selectedBadges.splice(idx, 1);
-      }
+        const idx = window.selectedBadges.indexOf(b.id);
+        if (idx === -1) {
+          window.selectedBadges.push(b.id);
+        } else {
+          window.selectedBadges.splice(idx, 1);
+        }
+      });
+
+      container.appendChild(pill);
     });
-
-    container.appendChild(pill);
-  });
+  } catch (e) {
+    console.error("❌ Error cargando badges", e);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
