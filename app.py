@@ -450,11 +450,12 @@ def admin_panel():
 # ==========================================================
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
-    if not admin_protected():
-        abort(401)
+    admin_protected()  # 🔥 ESTA ES LA CLAVE
 
     try:
         data = request.form
+        badges = json.loads(data.get("badges", "[]"))
+
 
         # 🔥 BADGES
         badges = json.loads(data.get("badges", "[]"))
