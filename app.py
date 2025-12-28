@@ -234,6 +234,10 @@ def remove_expired_featured():
 # -----------------------------
 # HELPERS
 # -----------------------------
+from flask import session, jsonify, redirect, url_for, request
+import json
+
+
 def clean_int(value, default=0):
     if value is None:
         return default
@@ -250,12 +254,24 @@ def clean_int(value, default=0):
 
 
 def admin_protected():
+    """
+    Protege tanto vistas HTML como endpoints API.
+    - Si NO está autenticado:
+        * API  -> JSON + 401
+        * HTML -> redirect al login
+    - Si está autenticado:
+        * devuelve None (y el endpoint sigue)
+    """
     if not session.get("admin_authenticated"):
-        return jsonify({
-            "success": False,
-            "error": "Unauthorized"
-        }), 401
+        if request.path.startswith("/api/"):
+            return jsonify({
+                "success": False,
+                "error": "Unauthorized"
+            }), 401
+        return redirect(url_for("admin_login"))
+
     return None
+
 
 def normalize_images_db(images_value):
     """
@@ -281,7 +297,6 @@ def normalize_images_db(images_value):
     if isinstance(images_value, dict):
         return list(images_value.values())
     return []
-
 
 # -----------------------------
 # RUTAS PÚBLICAS
