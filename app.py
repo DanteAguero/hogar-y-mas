@@ -305,9 +305,9 @@ def exencion():
 @limiter.limit("5 per minute")
 def admin_login():
     if request.method == "GET":
-    if admin_protected():
-        return redirect(url_for("admin_panel"))
-    return render_template("admin_login.html")
+        if admin_protected():
+            return redirect(url_for("admin_panel"))
+        return render_template("admin_login.html")
 
     username = request.form.get("username", "").strip()
     password = request.form.get("password", "")
