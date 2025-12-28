@@ -320,7 +320,7 @@ async function addStock() {
     if (!data.success) throw data;
 
     alert("✅ Producto publicado");
-    await loadStock();
+    // await loadStock();
 
   } catch (err) {
     console.error("❌ Error publicando:", err);
