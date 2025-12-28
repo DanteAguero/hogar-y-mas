@@ -303,7 +303,7 @@ async function addStock() {
     fd.append("sizes", document.getElementById("new_sizes")?.value || "");
     fd.append("color", document.getElementById("new_color")?.value || "");
     fd.append("description", document.getElementById("new_description")?.value || "");
-	fd.append("badges", JSON.stringify(selectedBadges));
+	fd.append("badges", JSON.stringify(window.selectedBadges || []));
 
     for (let i = 1; i <= 4; i++) {
       const input = document.getElementById("image" + i);
@@ -912,3 +912,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
 
 })();
+	  
+window.addStock = addStock;
