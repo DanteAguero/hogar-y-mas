@@ -913,4 +913,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })();
 	  
-window.addStock = addStock;
+if (window.IS_ADMIN_PANEL) {
+  window.addStock = addStock;
+}
