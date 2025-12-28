@@ -317,7 +317,11 @@ async function addStock() {
     });
 
     const data = await res.json();
-    if (!data.success) throw data;
+
+    if (!data.success) {
+      console.error("❌ Backend respondió error:", data);
+      throw data;
+    }
 
     alert("✅ Producto publicado");
     // await loadStock();
