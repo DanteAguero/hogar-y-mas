@@ -331,7 +331,8 @@ def exencion():
 @limiter.limit("5 per minute")
 def admin_login():
     if request.method == "GET":
-        if admin_protected():
+        resp = admin_protected()
+        if resp is None:
             return redirect(url_for("admin_panel"))
         return render_template("admin_login.html")
 
@@ -339,32 +340,38 @@ def admin_login():
     password = request.form.get("password", "")
 
     if not username or not password:
-        return render_template("admin_login.html", error="Usuario y contraseña son obligatorios")
+        return render_template(
+            "admin_login.html",
+            error="Usuario y contraseña son obligatorios"
+        )
 
     try:
         conn = get_db_connection()
         cur = conn.cursor()
 
-        cur.execute(
-            """
+        cur.execute("""
             SELECT id, password_hash
             FROM admin_users
             WHERE username = %s AND is_active = TRUE;
-            """,
-            (username,),
-        )
+        """, (username,))
 
         row = cur.fetchone()
         cur.close()
         conn.close()
 
         if not row:
-            return render_template("admin_login.html", error="Usuario o contraseña incorrectos")
+            return render_template(
+                "admin_login.html",
+                error="Usuario o contraseña incorrectos"
+            )
 
         user_id, password_hash = row
 
         if not check_password_hash(password_hash, password):
-            return render_template("admin_login.html", error="Usuario o contraseña incorrectos")
+            return render_template(
+                "admin_login.html",
+                error="Usuario o contraseña incorrectos"
+            )
 
         session.clear()
         session["admin_2fa_user_id"] = user_id
@@ -375,9 +382,15 @@ def admin_login():
 
     except Exception as error:
         print("❌ Error en admin_login:", error)
-        return render_template("admin_login.html", error="Error interno, intentá de nuevo más tarde")
+        return render_template(
+            "admin_login.html",
+            error="Error interno, intentá de nuevo más tarde"
+        )
 
 
+# ==========================================================
+# 🔐 2FA
+# ==========================================================
 @app.route("/admin_2fa", methods=["GET", "POST"])
 @limiter.limit("5 per minute")
 def admin_2fa():
@@ -390,20 +403,20 @@ def admin_2fa():
 
     code = request.form.get("code", "").strip()
     if not code:
-        return render_template("admin_2fa.html", error="Ingresá el código 2FA")
+        return render_template(
+            "admin_2fa.html",
+            error="Ingresá el código 2FA"
+        )
 
     try:
         conn = get_db_connection()
         cur = conn.cursor()
 
-        cur.execute(
-            """
+        cur.execute("""
             SELECT totp_secret
             FROM admin_users
             WHERE id = %s AND is_active = TRUE;
-            """,
-            (user_id,),
-        )
+        """, (user_id,))
 
         row = cur.fetchone()
         cur.close()
@@ -413,12 +426,15 @@ def admin_2fa():
             session.clear()
             return redirect(url_for("admin_login"))
 
-        totp_secret = row[0]
-        totp = pyotp.TOTP(totp_secret)
+        totp = pyotp.TOTP(row[0])
 
         if not totp.verify(code, valid_window=1):
-            return render_template("admin_2fa.html", error="Código 2FA inválido")
+            return render_template(
+                "admin_2fa.html",
+                error="Código 2FA inválido"
+            )
 
+        # 🔥 CLAVE: se fija la sesión ADMIN
         session.clear()
         session["admin_authenticated"] = True
         session["admin_user_id"] = user_id
@@ -433,15 +449,23 @@ def admin_2fa():
         return redirect(url_for("admin_login"))
 
 
+# ==========================================================
+# 🔓 LOGOUT
+# ==========================================================
 @app.route("/admin_logout")
 def admin_logout():
     session.clear()
     return redirect(url_for("admin_login"))
 
+
+# ==========================================================
+# 🛠️ PANEL ADMIN
+# ==========================================================
 @app.route("/admin_panel")
 def admin_panel():
-    if not admin_protected():
-        return redirect(url_for("admin_login"))
+    resp = admin_protected()
+    if resp:
+        return resp
 
     remove_expired_featured()
 
@@ -449,13 +473,12 @@ def admin_panel():
     cur = conn.cursor()
 
     cur.execute("""
-    SELECT id, name
-    FROM categories
-    ORDER BY name
-""")
+        SELECT id, name
+        FROM categories
+        ORDER BY name;
+    """)
 
     categories = cur.fetchall()
-
     cur.close()
     conn.close()
 
