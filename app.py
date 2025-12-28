@@ -444,54 +444,47 @@ def admin_panel():
         "admin_panel.html",
         categories=categories
     )
-    
+
 # ==========================================================
 # API: CREAR PRODUCTO (solo admin)
 # ==========================================================
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
     if not admin_protected():
-        return jsonify({"success": False, "error": "mensaje"}), 400
+        abort(401)
 
     try:
         data = request.form
 
-        # 🔥 BADGES (PASO 2: LEER BADGES)
+        # 🔥 BADGES
         badges = json.loads(data.get("badges", "[]"))
 
         # ---------- IMÁGENES ----------
         images_paths = []
-
         for i in range(1, 5):
             f = request.files.get(f"image{i}")
             if f and f.filename:
                 filename = secure_filename(f.filename)
-
-                # path dentro del bucket
                 path = f"products/{filename}"
 
-                # subir a Supabase
                 supabase.storage.from_(SUPABASE_BUCKET).upload(
                     path,
                     f.read(),
                     file_options={
-                        "content-type": str(f.mimetype or "application/octet-stream"),
-                        "upsert": "true"   # ✅ FIX: NO boolean, tiene que ser string
+                        "content-type": f.mimetype,
+                        "upsert": True
                     }
                 )
 
-                # obtener URL pública
                 public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(path)
-
                 images_paths.append(public_url)
 
         # ---------- CAMPOS ----------
         title = (data.get("title") or "").strip()
         price = clean_int(data.get("price"), 0)
 
-        # 🔥 NUEVOS CAMPOS
-        gender = (data.get("gender") or "").strip()           # masculina / femenina
-        category_id = clean_int(data.get("category_id"), 0)  # FK categories.id
+        gender = (data.get("gender") or "").strip()
+        category_id = clean_int(data.get("category_id"), 0)
 
         stock_qty = clean_int(data.get("stock"), 0)
         sizes = (data.get("sizes") or "").strip()
@@ -503,29 +496,18 @@ def add_stock():
             return jsonify({"success": False, "error": "Datos inválidos"}), 400
 
         if not gender or category_id <= 0:
-            return jsonify({
-                "success": False,
-                "error": "Género y categoría son obligatorios"
-            }), 400
+            return jsonify({"success": False, "error": "Género y categoría son obligatorios"}), 400
 
-        seller_id = 1  # fijo por ahora
+        seller_id = 1
 
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # ---------- INSERT PRODUCTO ----------
         cur.execute("""
             INSERT INTO stock (
-                seller_id,
-                title,
-                price,
-                gender,
-                category_id,
-                stock,
-                sizes,
-                color,
-                description,
-                images
+                seller_id, title, price, gender,
+                category_id, stock, sizes,
+                color, description, images
             )
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s::jsonb)
             RETURNING id;
@@ -544,12 +526,11 @@ def add_stock():
 
         new_id = cur.fetchone()[0]
 
-        # 🔥 BADGES (PASO 3: GUARDAR BADGES)
         for badge_id in badges:
             cur.execute("""
                 INSERT INTO stock_badges (stock_id, badge_id)
                 VALUES (%s, %s)
-            """, (new_id, badge_id))
+            """, (new_id, int(badge_id)))
 
         conn.commit()
         cur.close()
