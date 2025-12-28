@@ -352,14 +352,14 @@ function editItem(id) {
 }
 
 /* ==========================================================
-   ADMIN — CARGAR CATEGORÍAS (PLANO)
+   ADMIN — CARGAR CATEGORÍAS (FIX DEFINITIVO)
 ========================================================== */
 async function loadCategories() {
   const select = document.getElementById("new_category");
   if (!select) return;
 
   select.innerHTML = '<option value="">Categoría</option>';
-  select.disabled = true;
+  select.disabled = false;
 
   try {
     const res = await fetch("/api/categories");
@@ -372,7 +372,6 @@ async function loadCategories() {
       select.appendChild(opt);
     });
 
-    select.disabled = false;
   } catch (e) {
     console.error("❌ Error cargando categorías", e);
   }
