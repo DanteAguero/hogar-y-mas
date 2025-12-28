@@ -230,14 +230,9 @@ def remove_expired_featured():
     except Exception as e:
         print("❌ Error limpiando destacados vencidos:", e)
 
-
 # -----------------------------
 # HELPERS
 # -----------------------------
-from flask import session, jsonify, redirect, url_for, request
-import json
-
-
 def clean_int(value, default=0):
     if value is None:
         return default
@@ -254,30 +249,10 @@ def clean_int(value, default=0):
 
 
 def admin_protected():
-    """
-    Protege tanto vistas HTML como endpoints API.
-    - Si NO está autenticado:
-        * API  -> JSON + 401
-        * HTML -> redirect al login
-    - Si está autenticado:
-        * devuelve None (y el endpoint sigue)
-    """
-    if not session.get("admin_authenticated"):
-        if request.path.startswith("/api/"):
-            return jsonify({
-                "success": False,
-                "error": "Unauthorized"
-            }), 401
-        return redirect(url_for("admin_login"))
-
-    return None
+    return session.get("admin_authenticated") is True
 
 
 def normalize_images_db(images_value):
-    """
-    images en JSONB a veces vuelve como list, a veces como str JSON,
-    o None. Devolvemos siempre lista.
-    """
     if images_value is None:
         return []
     if isinstance(images_value, list):
@@ -492,9 +467,11 @@ def admin_panel():
 # ==========================================================
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
-    resp = admin_protected()   # ✅ CLAVE
-    if resp:
-        return resp            # ✅ CLAVE
+    if not admin_protected():
+        return jsonify({
+            "success": False,
+            "error": "Unauthorized"
+        }), 401
 
     try:
         data = request.form
@@ -523,24 +500,18 @@ def add_stock():
         # ---------- CAMPOS ----------
         title = (data.get("title") or "").strip()
         price = clean_int(data.get("price"), 0)
-
         gender = (data.get("gender") or "").strip()
         category_id = clean_int(data.get("category_id"), 0)
-
         stock_qty = clean_int(data.get("stock"), 0)
         sizes = (data.get("sizes") or "").strip()
         color = (data.get("color") or "").strip()
         description = (data.get("description") or "").strip()
 
-        # ---------- VALIDACIONES ----------
         if not title or price <= 0:
             return jsonify({"success": False, "error": "Datos inválidos"}), 400
 
         if not gender or category_id <= 0:
-            return jsonify({
-                "success": False,
-                "error": "Género y categoría son obligatorios"
-            }), 400
+            return jsonify({"success": False, "error": "Género y categoría son obligatorios"}), 400
 
         seller_id = 1
 
