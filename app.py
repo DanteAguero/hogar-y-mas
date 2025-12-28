@@ -485,8 +485,9 @@ def add_stock():
                     f.read(),
                     file_options={
                         "content-type": f.mimetype,
-                        "upsert": True
+                        "upsert": "true"   # ✅ string
                     }
+
                 )
 
                 public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(path)
