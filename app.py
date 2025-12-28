@@ -251,7 +251,6 @@ def clean_int(value, default=0):
 def admin_protected():
     return session.get("admin_authenticated") is True
 
-
 def normalize_images_db(images_value):
     if images_value is None:
         return []
@@ -468,10 +467,7 @@ def admin_panel():
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
     if not admin_protected():
-        return jsonify({
-            "success": False,
-            "error": "Unauthorized"
-        }), 401
+        return jsonify({"success": False, "error": "Unauthorized"}), 401
 
     try:
         data = request.form
@@ -507,6 +503,7 @@ def add_stock():
         color = (data.get("color") or "").strip()
         description = (data.get("description") or "").strip()
 
+        # ---------- VALIDACIONES ----------
         if not title or price <= 0:
             return jsonify({"success": False, "error": "Datos inválidos"}), 400
 
