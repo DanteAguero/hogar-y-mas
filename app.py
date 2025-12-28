@@ -450,8 +450,9 @@ def admin_panel():
 # ==========================================================
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
-    if not admin_protected():
-        return jsonify({"success": False, "error": "mensaje"}), 400
+    # ✅ FIX REAL: no usar admin_protected() en APIs
+    if session.get("admin_authenticated") is not True:
+        return jsonify({"success": False, "error": "Unauthorized"}), 401
 
     try:
         data = request.form
@@ -467,10 +468,8 @@ def add_stock():
             if f and f.filename:
                 filename = secure_filename(f.filename)
 
-                # path dentro del bucket
                 path = f"products/{filename}"
 
-                # subir a Supabase
                 supabase.storage.from_(SUPABASE_BUCKET).upload(
                     path,
                     f.read(),
@@ -480,18 +479,15 @@ def add_stock():
                     }
                 )
 
-                # obtener URL pública
                 public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(path)
-
                 images_paths.append(public_url)
 
         # ---------- CAMPOS ----------
         title = (data.get("title") or "").strip()
         price = clean_int(data.get("price"), 0)
 
-        # 🔥 NUEVOS CAMPOS
-        gender = (data.get("gender") or "").strip()           # masculina / femenina
-        category_id = clean_int(data.get("category_id"), 0)  # FK categories.id
+        gender = (data.get("gender") or "").strip()
+        category_id = clean_int(data.get("category_id"), 0)
 
         stock_qty = clean_int(data.get("stock"), 0)
         sizes = (data.get("sizes") or "").strip()
@@ -508,7 +504,7 @@ def add_stock():
                 "error": "Género y categoría son obligatorios"
             }), 400
 
-        seller_id = 1  # fijo por ahora
+        seller_id = 1
 
         conn = get_db_connection()
         cur = conn.cursor()
