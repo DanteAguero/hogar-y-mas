@@ -250,8 +250,12 @@ def clean_int(value, default=0):
 
 
 def admin_protected():
-    return session.get("admin_authenticated") is True
-
+    if not session.get("admin_authenticated"):
+        return jsonify({
+            "success": False,
+            "error": "Unauthorized"
+        }), 401
+    return None
 
 def normalize_images_db(images_value):
     """
