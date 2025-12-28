@@ -295,7 +295,6 @@ async function addStock() {
     fd.append("title", document.getElementById("new_title")?.value || "");
     fd.append("price", document.getElementById("new_price")?.value || "");
 
-    // 🔥 NUEVO
     fd.append("gender", document.getElementById("new_gender")?.value || "");
     fd.append("category_id", document.getElementById("new_category")?.value || "");
 
@@ -303,7 +302,7 @@ async function addStock() {
     fd.append("sizes", document.getElementById("new_sizes")?.value || "");
     fd.append("color", document.getElementById("new_color")?.value || "");
     fd.append("description", document.getElementById("new_description")?.value || "");
-	fd.append("badges", JSON.stringify(window.selectedBadges || []));
+    fd.append("badges", JSON.stringify(window.selectedBadges || []));
 
     for (let i = 1; i <= 4; i++) {
       const input = document.getElementById("image" + i);
@@ -322,12 +321,12 @@ async function addStock() {
 
     alert("✅ Producto publicado");
     await loadStock();
+
   } catch (err) {
     console.error("❌ Error publicando:", err);
     alert("❌ Error al publicar (ver consola)");
   }
 }
-
 
 /* ==========================================================
    ADMIN — ELIMINAR / EDITAR
@@ -387,9 +386,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 /* =========================
-   ADMIN — CATEGORÍAS + BADGES (NUEVO)
+   ADMIN — CATEGORÍAS + BADGES
 ========================= */
-let selectedBadges = [];
+window.selectedBadges = [];
 
 /* CATEGORÍAS */
 async function loadCategories() {
@@ -412,6 +411,8 @@ async function loadBadges() {
   const container = document.getElementById("badgesContainer");
   if (!container) return;
 
+  container.innerHTML = "";
+
   const res = await fetch("/api/badges");
   const badges = await res.json();
 
@@ -420,15 +421,16 @@ async function loadBadges() {
     pill.className = "badge-pill";
     pill.textContent = b.name;
 
-    pill.onclick = () => {
+    pill.addEventListener("click", () => {
       pill.classList.toggle("active");
 
-      if (selectedBadges.includes(b.id)) {
-        selectedBadges = selectedBadges.filter(id => id !== b.id);
+      const idx = window.selectedBadges.indexOf(b.id);
+      if (idx === -1) {
+        window.selectedBadges.push(b.id);
       } else {
-        selectedBadges.push(b.id);
+        window.selectedBadges.splice(idx, 1);
       }
-    };
+    });
 
     container.appendChild(pill);
   });
