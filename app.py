@@ -492,14 +492,12 @@ def admin_panel():
 # ==========================================================
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
-    auth = admin_protected()   # 🔧 CAPTURAMOS EL RETURN
-    if auth is not True:       # 🔧 SI NO ES TRUE, CORTAMOS
-        return auth
+    resp = admin_protected()   # ✅ CLAVE
+    if resp:
+        return resp            # ✅ CLAVE
 
     try:
         data = request.form
-
-        # 🔥 BADGES
         badges = json.loads(data.get("badges", "[]"))
 
         # ---------- IMÁGENES ----------
