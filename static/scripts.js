@@ -204,7 +204,6 @@ function renderPage() {
     const badgesHtml = (item.badges || [])
   .map(badge => {
 
-    // 1️⃣ Si viene como número (ID)
     if (typeof badge === "number") {
       const key = BADGE_KEYS[badge];
       if (!key) return "";
@@ -215,7 +214,6 @@ function renderPage() {
       `;
     }
 
-    // 2️⃣ Si viene como string
     const key = String(badge)
       .toLowerCase()
       .normalize("NFD")
@@ -228,9 +226,6 @@ function renderPage() {
     `;
   })
   .join("");
-
-
-
         
 
     grid.innerHTML += `
