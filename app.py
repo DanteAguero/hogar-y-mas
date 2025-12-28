@@ -450,12 +450,12 @@ def admin_panel():
 # ==========================================================
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
-    admin_protected()  # 🔥 ESTA ES LA CLAVE
+    auth = admin_protected()   # 🔧 CAPTURAMOS EL RETURN
+    if auth is not True:       # 🔧 SI NO ES TRUE, CORTAMOS
+        return auth
 
     try:
         data = request.form
-        badges = json.loads(data.get("badges", "[]"))
-
 
         # 🔥 BADGES
         badges = json.loads(data.get("badges", "[]"))
@@ -497,7 +497,10 @@ def add_stock():
             return jsonify({"success": False, "error": "Datos inválidos"}), 400
 
         if not gender or category_id <= 0:
-            return jsonify({"success": False, "error": "Género y categoría son obligatorios"}), 400
+            return jsonify({
+                "success": False,
+                "error": "Género y categoría son obligatorios"
+            }), 400
 
         seller_id = 1
 
