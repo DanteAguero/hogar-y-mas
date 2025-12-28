@@ -210,7 +210,7 @@ function renderPage() {
       if (!key) return "";
       return `
         <span class="card-badge card-badge-${key}">
-          ${BADGE_LABELS[key]}
+          ${key}
         </span>
       `;
     }
@@ -223,7 +223,7 @@ function renderPage() {
 
     return `
       <span class="card-badge card-badge-${key}">
-        ${BADGE_LABELS[key] || badge}
+        ${key}
       </span>
     `;
   })
