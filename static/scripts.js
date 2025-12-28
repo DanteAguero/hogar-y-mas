@@ -352,38 +352,31 @@ function editItem(id) {
 }
 
 /* ==========================================================
-   ADMIN – CATEGORÍAS POR GÉNERO (FIX FINAL)
+   ADMIN — CARGAR CATEGORÍAS (PLANO)
 ========================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const genderSelect = document.getElementById("new_gender");
-  const categorySelect = document.getElementById("new_category");
+async function loadCategories() {
+  const select = document.getElementById("new_category");
+  if (!select) return;
 
-  if (!genderSelect || !categorySelect) return;
-  if (!window.CATEGORIES) return;
+  select.innerHTML = '<option value="">Categoría</option>';
+  select.disabled = true;
 
-  genderSelect.addEventListener("change", () => {
-    const gender = genderSelect.value;
+  try {
+    const res = await fetch("/api/categories");
+    const categories = await res.json();
 
-    categorySelect.innerHTML = `<option value="">Categoría</option>`;
-    categorySelect.disabled = true;
+    categories.forEach(cat => {
+      const opt = document.createElement("option");
+      opt.value = cat.id;
+      opt.textContent = cat.name;
+      select.appendChild(opt);
+    });
 
-    if (!gender) return;
-
-    window.CATEGORIES.forEach(c => {
-	  const opt = document.createElement("option");
-	  opt.value = c[0];       // id
-	  opt.textContent = c[1]; // name
-	  categorySelect.appendChild(opt);
-	});	
-      
-        const opt = document.createElement("option");
-        opt.value = c[0];             // 👈 id
-        opt.textContent = c[1];       // 👈 name
-        categorySelect.appendChild(opt);
-      });
-
-    categorySelect.disabled = false;
-  });
+    select.disabled = false;
+  } catch (e) {
+    console.error("❌ Error cargando categorías", e);
+  }
+}
 
 /* =========================
    ADMIN — CATEGORÍAS + BADGES
