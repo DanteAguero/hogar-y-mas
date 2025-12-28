@@ -154,9 +154,6 @@ def create_stock_table():
         print("❌ ERROR CREANDO TABLA stock:", error)
 
 
-create_admin_users_table()
-create_stock_table()
-
 
 # Crear admin por defecto desde variables de entorno
 def ensure_default_admin():
