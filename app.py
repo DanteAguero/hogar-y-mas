@@ -463,8 +463,8 @@ def admin_panel():
 # ==========================================================
 # API: CREAR PRODUCTO (solo admin)
 # ==========================================================
-@app.route("/api/stock/list", methods=["GET"])
-def get_stock():
+@app.route("/api/stock", methods=["POST"])
+def add_stock():
     if not admin_protected():
         return jsonify({"success": False, "error": "Unauthorized"}), 401
 
