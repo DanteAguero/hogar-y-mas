@@ -438,9 +438,8 @@ def admin_logout():
 # ==========================================================
 @app.route("/admin_panel")
 def admin_panel():
-    resp = admin_protected()
-    if resp:
-        return resp
+    if not admin_protected():
+        return redirect(url_for("admin_login"))
 
     remove_expired_featured()
 
@@ -450,10 +449,11 @@ def admin_panel():
     cur.execute("""
         SELECT id, name
         FROM categories
-        ORDER BY name;
+        ORDER BY name
     """)
 
     categories = cur.fetchall()
+
     cur.close()
     conn.close()
 
