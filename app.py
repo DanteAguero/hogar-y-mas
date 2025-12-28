@@ -430,16 +430,10 @@ def admin_panel():
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT
-            c.id,
-            c.name,
-            c.slug,
-            p.slug AS parent_slug
-        FROM categories c
-        JOIN categories p ON p.id = c.parent_id
-        WHERE c.active = true
-        ORDER BY p.name, c.name
-    """)
+    SELECT id, name
+    FROM categories
+    ORDER BY name
+""")
 
     categories = cur.fetchall()
 
