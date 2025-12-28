@@ -451,7 +451,7 @@ def admin_panel():
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
     if not admin_protected():
-        return jsonify({"success": False, "error": "Unauthorized"}), 401
+        return jsonify({"success": False, "error": "mensaje"}), 400
 
     try:
         data = request.form
@@ -686,8 +686,7 @@ def get_stock():
 
     except Exception as e:
         print("❌ ERROR GET /api/stock:", e)
-        return jsonify({"success": False, "error": str(e)}), 500
-
+        return jsonify({"success": False, "error": "mensaje"}), 400
 
 # ==========================================================
 # API: SOFT DELETE / EDIT / GET ITEM (solo admin) ✅ FIX FRONTEND
