@@ -305,10 +305,9 @@ def exencion():
 @limiter.limit("5 per minute")
 def admin_login():
     if request.method == "GET":
-        resp = admin_protected()
-        if resp is None:
-            return redirect(url_for("admin_panel"))
-        return render_template("admin_login.html")
+    if admin_protected():
+        return redirect(url_for("admin_panel"))
+    return render_template("admin_login.html")
 
     username = request.form.get("username", "").strip()
     password = request.form.get("password", "")
@@ -464,8 +463,8 @@ def admin_panel():
 # ==========================================================
 # API: CREAR PRODUCTO (solo admin)
 # ==========================================================
-@app.route("/api/stock", methods=["POST"])
-def add_stock():
+@app.route("/api/stock/list", methods=["GET"])
+def get_stock():
     if not admin_protected():
         return jsonify({"success": False, "error": "Unauthorized"}), 401
 
