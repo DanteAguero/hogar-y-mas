@@ -444,15 +444,14 @@ def admin_panel():
         "admin_panel.html",
         categories=categories
     )
-
+    
 # ==========================================================
 # API: CREAR PRODUCTO (solo admin)
 # ==========================================================
 @app.route("/api/stock", methods=["POST"])
 def add_stock():
-    # ✅ FIX REAL: no usar admin_protected() en APIs
-    if session.get("admin_authenticated") is not True:
-        return jsonify({"success": False, "error": "Unauthorized"}), 401
+    if not admin_protected():
+        return jsonify({"success": False, "error": "mensaje"}), 400
 
     try:
         data = request.form
@@ -462,32 +461,37 @@ def add_stock():
 
         # ---------- IMÁGENES ----------
         images_paths = []
-        
+
         for i in range(1, 5):
             f = request.files.get(f"image{i}")
             if f and f.filename:
                 filename = secure_filename(f.filename)
 
+                # path dentro del bucket
                 path = f"products/{filename}"
 
+                # subir a Supabase
                 supabase.storage.from_(SUPABASE_BUCKET).upload(
                     path,
                     f.read(),
                     file_options={
-                        "content-type": f.mimetype,
-                        "upsert": True
+                        "content-type": str(f.mimetype or "application/octet-stream"),
+                        "upsert": "true"   # ✅ FIX: NO boolean, tiene que ser string
                     }
                 )
 
+                # obtener URL pública
                 public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(path)
+
                 images_paths.append(public_url)
 
         # ---------- CAMPOS ----------
         title = (data.get("title") or "").strip()
         price = clean_int(data.get("price"), 0)
 
-        gender = (data.get("gender") or "").strip()
-        category_id = clean_int(data.get("category_id"), 0)
+        # 🔥 NUEVOS CAMPOS
+        gender = (data.get("gender") or "").strip()           # masculina / femenina
+        category_id = clean_int(data.get("category_id"), 0)  # FK categories.id
 
         stock_qty = clean_int(data.get("stock"), 0)
         sizes = (data.get("sizes") or "").strip()
@@ -504,7 +508,7 @@ def add_stock():
                 "error": "Género y categoría son obligatorios"
             }), 400
 
-        seller_id = 1
+        seller_id = 1  # fijo por ahora
 
         conn = get_db_connection()
         cur = conn.cursor()
