@@ -385,7 +385,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     categorySelect.disabled = false;
   });
-});
 
 /* =========================
    ADMIN — CATEGORÍAS + BADGES (NUEVO)
