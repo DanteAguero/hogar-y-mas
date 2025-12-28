@@ -565,7 +565,7 @@ def add_stock():
 # API: CATEGORÍAS (admin + público)
 # ==========================================================
 @app.route("/api/categories")
-def get_categories():
+def api_categories():
     try:
         conn = get_db_connection()
         cur = conn.cursor()
@@ -573,17 +573,16 @@ def get_categories():
         cur.execute("""
             SELECT id, name
             FROM categories
-            WHERE active = true
             ORDER BY name
         """)
 
         rows = cur.fetchall()
+
         cur.close()
         conn.close()
 
         return jsonify([
-            {"id": r[0], "name": r[1]}
-            for r in rows
+            {"id": r[0], "name": r[1]} for r in rows
         ])
 
     except Exception as e:
@@ -600,7 +599,7 @@ def get_badges():
         cur = conn.cursor()
 
         cur.execute("""
-            SELECT id, name, slug, color
+            SELECT id, name
             FROM badges
             ORDER BY id
         """)
@@ -612,9 +611,7 @@ def get_badges():
         return jsonify([
             {
                 "id": r[0],
-                "name": r[1],
-                "slug": r[2],
-                "color": r[3]
+                "name": r[1]
             }
             for r in rows
         ])
