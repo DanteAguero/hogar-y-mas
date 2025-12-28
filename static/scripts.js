@@ -603,7 +603,9 @@ document.addEventListener("DOMContentLoaded", () => {
       dots.forEach(d => d.classList.remove("active"));
       dot.classList.add("active");
     });
-  
+  });
+});
+
 /* ==========================================================
    BUSCADOR — FIX FINAL (ENTER + MOBILE)
 ========================================================== */
