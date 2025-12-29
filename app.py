@@ -810,7 +810,7 @@ def unfeature(item_id):
     return jsonify({"success": True})
 
 # ==========================================================
-# DETALLE (público) ✅ + BADGES + RELATED
+# DETALLE (público) ✅ FIX CATEGORY + BADGES + RELATED
 # ==========================================================
 @app.route("/stock/<int:item_id>")
 def item_detail(item_id):
@@ -829,7 +829,8 @@ def item_detail(item_id):
                 s.seller_id,
                 s.title,
                 s.price,
-                s.category,
+                c.name AS category,
+                s.category_id,
                 s.stock,
                 s.sizes,
                 s.color,
@@ -844,10 +845,11 @@ def item_detail(item_id):
                     '[]'
                 ) AS badges
             FROM stock s
+            LEFT JOIN categories c ON c.id = s.category_id
             LEFT JOIN stock_badges sb ON sb.stock_id = s.id
             LEFT JOIN badges b ON b.id = sb.badge_id
             WHERE s.id = %s
-            GROUP BY s.id;
+            GROUP BY s.id, c.name;
         """, (item_id,))
 
         row = cur.fetchone()
@@ -863,50 +865,47 @@ def item_detail(item_id):
             "title": row[2],
             "price": row[3],
             "category": row[4],
-            "stock": row[5],
-            "sizes": [s.strip() for s in (row[6] or "").split(",") if s.strip()],
-            "color": row[7] or "",
-            "description": row[8] or "",
-            "images": normalize_images_db(row[9]),
-            "is_sold": row[10],
-            "is_featured": row[11],
-            "featured_until": row[12],
-            "created_at": row[13],
-            "badges": row[14] or [],
+            "category_id": row[5],
+            "stock": row[6],
+            "sizes": [s.strip() for s in (row[7] or "").split(",") if s.strip()],
+            "color": row[8] or "",
+            "description": row[9] or "",
+            "images": normalize_images_db(row[10]),
+            "is_sold": row[11],
+            "is_featured": row[12],
+            "featured_until": row[13],
+            "created_at": row[14],
+            "badges": row[15] or [],
         }
 
         # =========================
-        # RELATED PRODUCTS
+        # RELATED PRODUCTS (FIX)
         # =========================
         cur.execute("""
             SELECT
-                id,
-                title,
-                price,
-                images
-            FROM stock
+                s.id,
+                s.title,
+                s.price,
+                s.images
+            FROM stock s
             WHERE
-                id != %s
-                AND (
-                    category = %s
-                    OR %s IS NULL
-                    OR category IS NULL
-             )
+                s.id != %s
+                AND s.category_id = %s
             ORDER BY RANDOM()
             LIMIT 4;
-        """, (item["id"], item["category"], item["category"]))
-
+        """, (item["id"], item["category_id"]))
 
         related_rows = cur.fetchall()
 
-        related_items = []
-        for r in related_rows:
-            related_items.append({
+        related_items = [
+            {
                 "id": r[0],
                 "title": r[1],
                 "price": r[2],
                 "images": normalize_images_db(r[3]),
-            })
+            }
+            for r in related_rows
+        ]
 
         cur.close()
         conn.close()
@@ -920,8 +919,6 @@ def item_detail(item_id):
     except Exception as error:
         print("❌ Error detalle:", error)
         return render_template("item_not_found.html", item_id=item_id)
-
-
 
 # ==========================================================
 # SERVER
