@@ -826,7 +826,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ).join("%0A");
 
       checkoutBtn.href =
-        `https://wa.me/5492616582829?text=` +
+        `https://wa.me/5492634680619?text=` +
         `Hola! Quiero hacer este pedido:%0A%0A` +
         text +
         `%0A%0ATotal: ${formatPrice(total)}`;
