@@ -1,167 +1,97 @@
-🏠 Hogar y Más — E-commerce Demo
+# 🏠 Hogar y Más — E-commerce Web Application (Demo)
 
-Hogar y Más es una aplicación web de comercio electrónico desarrollada como demo funcional para pequeños y medianos negocios, enfocada en rapidez de personalización, despliegue sencillo y experiencia de usuario clara.
+Full stack e-commerce web application developed with **Python and Flask**, focused on clean architecture, usability and production-ready deployment.
 
-El proyecto está pensado como base reutilizable para tiendas online reales, con panel de administración, gestión de productos, seguridad básica y arquitectura lista para producción.
+This project was built as a **technical demonstration**, showcasing backend development, responsive frontend, authentication, security basics and Docker-based deployment. It is designed as a reusable base for real-world e-commerce projects.
 
-🔗 Demo online:
+🔗 **Live Demo**  
 👉 https://hogar-y-mas-web.onrender.com
 
-✨ Características principales
+---
 
-🛒 Catálogo de productos dinámico
+## 🧩 Tech Stack
 
-🔍 Buscador en tiempo real
+### Frontend
+- HTML5  
+- CSS3  
+- JavaScript (Vanilla)
 
-📄 Vista de detalle de producto
+### Backend
+- Python  
+- Flask  
 
-🧑‍💻 Panel de administración
+### Database
+- PostgreSQL  
 
-🔐 Login con usuario y contraseña
+### Infrastructure
+- Docker  
+- Docker Compose  
+- Render (deployment)  
+- Supabase (image storage)
 
-🔑 Contraseñas hasheadas
+---
 
-🔒 Autenticación en dos pasos (2FA)
+## ✨ Key Features
 
-🖼 Imágenes alojadas en Supabase
+- Dynamic product catalog  
+- Real-time search  
+- Product detail views  
+- Admin panel with authentication  
+- Password hashing  
+- Two-factor authentication (2FA)  
+- Responsive design (mobile-first)  
+- Dockerized deployment  
+- Modular and scalable architecture  
+- Production-oriented project structure  
 
-📱 Diseño responsive (mobile first)
+---
 
-🚀 Despliegue en Render
+## 🧠 Purpose
 
-🐳 Docker + Docker Compose
+This project was developed to demonstrate my **full stack development skills**, focusing on:
 
-🗄 PostgreSQL como base de datos
+- Backend logic and data handling  
+- Secure authentication flows  
+- Clean and maintainable architecture  
+- Deployment workflows using Docker  
+- User experience and responsive design  
 
-🧩 Arquitectura modular y escalable
+---
 
-🧱 Stack tecnológico
+## 🧑‍💻 Admin Panel
 
-Frontend
+The application includes a protected admin panel that allows non-technical users to manage the store:
 
-HTML5
+- Create and edit products  
+- Manage prices and stock  
+- Upload product images (via Supabase)  
+- Secure login system  
+- Two-factor authentication  
 
-CSS3
+This approach enables store owners to manage their content without developer intervention.
 
-JavaScript (Vanilla)
+---
 
-Backend
+## 🔒 Security
 
-Python
+Basic security practices implemented in the project include:
 
-Flask
+- Password hashing  
+- Protected sessions  
+- Two-factor authentication (2FA)  
+- Clear separation between frontend and backend  
+- Sensitive configuration handled through environment variables  
 
-Base de datos
+---
 
-PostgreSQL
+## 📦 Architecture
 
-Infraestructura
+The project is organized with a clear and maintainable structure:
 
-Docker
-
-Docker Compose
-
-Render (deploy)
-
-Supabase (storage de imágenes)
-
-🧑‍💼 Panel de administración
-
-El sistema incluye un panel de administración protegido, desde el cual el usuario puede:
-
-Crear y editar productos
-
-Gestionar precios y stock
-
-Subir imágenes (vía Supabase)
-
-Acceder mediante autenticación segura
-
-Utilizar doble factor de autenticación
-
-Este enfoque permite que clientes no técnicos puedan administrar su tienda sin depender de un desarrollador.
-
-🔒 Seguridad
-
-Hash de contraseñas
-
-Sesiones protegidas
-
-Autenticación en dos pasos
-
-Separación clara entre frontend y backend
-
-Variables sensibles gestionadas por entorno
-
-📦 Arquitectura
-
-El proyecto está organizado de forma clara:
-
-/static        → estilos, scripts, assets
-/templates     → vistas HTML
-/app.py        → aplicación principal Flask
+```text
+/static            → styles, scripts, assets
+/templates         → HTML views
+/app.py            → main Flask application
 /docker-compose.yml
 /Dockerfile
 /requirements.txt
-
-
-Esto permite:
-
-Escalar el proyecto
-
-Adaptarlo a distintos negocios
-
-Integrarlo con pasarelas de pago o APIs externas
-
-🚀 Deploy
-
-La aplicación está desplegada en Render, utilizando contenedores Docker y PostgreSQL.
-
-El flujo de despliegue está preparado para:
-
-Entornos de prueba
-
-Entornos productivos
-
-Reutilización del proyecto para otros clientes
-
-🔐 Proyectos relacionados (privados)
-
-Este repositorio corresponde a una demo pública.
-
-Existe una versión PRO en repositorio privado, utilizada como producto comercial reutilizable, que incluye:
-
-🛍 Carrito de compras
-
-📲 Checkout directo a WhatsApp
-
-🖼 Galería con zoom y sticky images
-
-🧠 Recomendaciones ("También te puede gustar")
-
-🎨 Diseño editorial orientado a marcas de indumentaria
-
-⚙️ Configuración avanzada para clientes reales
-
-El código de esa versión es privado por motivos comerciales, pero el flujo completo puede demostrarse en vivo o mediante capturas bajo solicitud.
-
-👤 Autor
-
-Dante Agüero
-Full Stack Developer
-
-GitHub: https://github.com/DanteAguero
-
-Especialización: e-commerce, automatización, Flask, Docker, UX orientado a conversión
-
-📌 Nota
-
-Este proyecto fue desarrollado con foco en casos reales, priorizando:
-
-Usabilidad
-
-Seguridad básica
-
-Tiempo de entrega
-
-Facilidad de adaptación para distintos rubros
