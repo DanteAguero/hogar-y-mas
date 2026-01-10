@@ -1,83 +1,61 @@
-🏠 Hogar y Más – Plataforma E-commerce Personalizable
+🏠 Hogar y Más — E-commerce Demo
 
-Plataforma web de comercio electrónico desarrollada desde cero, pensada para pequeños emprendimientos que necesitan una tienda online simple, rápida y autoadministrable.
+Hogar y Más es una aplicación web de comercio electrónico desarrollada como demo funcional para pequeños y medianos negocios, enfocada en rapidez de personalización, despliegue sencillo y experiencia de usuario clara.
 
-👉 Demo en producción:
-https://hogar-y-mas-web.onrender.com
+El proyecto está pensado como base reutilizable para tiendas online reales, con panel de administración, gestión de productos, seguridad básica y arquitectura lista para producción.
 
-📌 Descripción general
+🔗 Demo online:
+👉 https://hogar-y-mas-web.onrender.com
 
-Hogar y Más es una aplicación web full stack que permite:
+✨ Características principales
 
-Mostrar un catálogo de productos dinámico
+🛒 Catálogo de productos dinámico
 
-Gestionar productos desde un panel de administración seguro
+🔍 Buscador en tiempo real
 
-Consultar stock y detalles de cada producto
+📄 Vista de detalle de producto
 
-Contactar al vendedor vía WhatsApp
+🧑‍💻 Panel de administración
 
-Personalizar rápidamente el contenido sin conocimientos técnicos
+🔐 Login con usuario y contraseña
 
-El sistema está diseñado para ser fácil de mantener, seguro y listo para producción.
+🔑 Contraseñas hasheadas
 
-🚀 Funcionalidades principales
-🛍️ Tienda
+🔒 Autenticación en dos pasos (2FA)
 
-Catálogo de productos dinámico
+🖼 Imágenes alojadas en Supabase
 
-Vista de detalle por producto
+📱 Diseño responsive (mobile first)
 
-Búsqueda rápida
+🚀 Despliegue en Render
 
-Etiquetas de productos (NEW / SALE)
+🐳 Docker + Docker Compose
 
-Diseño responsive (mobile y desktop)
+🗄 PostgreSQL como base de datos
 
-🔐 Panel de administración
+🧩 Arquitectura modular y escalable
 
-Acceso mediante usuario y contraseña
+🧱 Stack tecnológico
 
-Contraseñas almacenadas con hash
+Frontend
 
-Autenticación en dos pasos
+HTML5
 
-Gestión de productos (alta / edición / stock)
+CSS3
 
-Control de disponibilidad
+JavaScript (Vanilla)
 
-☁️ Infraestructura
-
-Despliegue en la nube
-
-Base de datos persistente
-
-Imágenes alojadas externamente
-
-🧱 Tecnologías utilizadas
 Backend
 
 Python
 
 Flask
 
+Base de datos
+
 PostgreSQL
 
-Autenticación segura
-
-APIs REST
-
-Frontend
-
-HTML
-
-CSS
-
-JavaScript
-
-Diseño responsive
-
-DevOps / Infraestructura
+Infraestructura
 
 Docker
 
@@ -85,65 +63,105 @@ Docker Compose
 
 Render (deploy)
 
-Supabase (almacenamiento de imágenes)
+Supabase (storage de imágenes)
 
-Git & GitHub
+🧑‍💼 Panel de administración
 
-🗂️ Estructura del proyecto
-├── aplicacion.py
-├── centro/
-│   └── lógica del backend
-├── plantillas/
-│   └── vistas HTML
-├── estatico/
-│   ├── css/
-│   ├── js/
-│   └── imágenes
-├── docker-compose.yml
-├── Dockerfile
-├── requisitos.txt
-└── esperar-a-postgres.sh
+El sistema incluye un panel de administración protegido, desde el cual el usuario puede:
 
-🐳 Ejecución con Docker
-docker compose up --build
+Crear y editar productos
 
+Gestionar precios y stock
 
-La aplicación quedará disponible en:
+Subir imágenes (vía Supabase)
 
-http://localhost:5000
+Acceder mediante autenticación segura
+
+Utilizar doble factor de autenticación
+
+Este enfoque permite que clientes no técnicos puedan administrar su tienda sin depender de un desarrollador.
 
 🔒 Seguridad
 
-Contraseñas protegidas mediante hashing
+Hash de contraseñas
 
-Autenticación con validaciones adicionales
+Sesiones protegidas
 
-Acceso restringido al panel de administración
+Autenticación en dos pasos
 
 Separación clara entre frontend y backend
 
-🎯 Objetivo del proyecto
+Variables sensibles gestionadas por entorno
 
-Este proyecto fue desarrollado como:
+📦 Arquitectura
 
-Solución real para un comercio
+El proyecto está organizado de forma clara:
 
-Ejemplo de arquitectura full stack moderna
+/static        → estilos, scripts, assets
+/templates     → vistas HTML
+/app.py        → aplicación principal Flask
+/docker-compose.yml
+/Dockerfile
+/requirements.txt
 
-Base reutilizable para otras tiendas online
 
-Proyecto demostrable para portafolio profesional
+Esto permite:
 
-👨‍💻 Autor
+Escalar el proyecto
+
+Adaptarlo a distintos negocios
+
+Integrarlo con pasarelas de pago o APIs externas
+
+🚀 Deploy
+
+La aplicación está desplegada en Render, utilizando contenedores Docker y PostgreSQL.
+
+El flujo de despliegue está preparado para:
+
+Entornos de prueba
+
+Entornos productivos
+
+Reutilización del proyecto para otros clientes
+
+🔐 Proyectos relacionados (privados)
+
+Este repositorio corresponde a una demo pública.
+
+Existe una versión PRO en repositorio privado, utilizada como producto comercial reutilizable, que incluye:
+
+🛍 Carrito de compras
+
+📲 Checkout directo a WhatsApp
+
+🖼 Galería con zoom y sticky images
+
+🧠 Recomendaciones ("También te puede gustar")
+
+🎨 Diseño editorial orientado a marcas de indumentaria
+
+⚙️ Configuración avanzada para clientes reales
+
+El código de esa versión es privado por motivos comerciales, pero el flujo completo puede demostrarse en vivo o mediante capturas bajo solicitud.
+
+👤 Autor
 
 Dante Agüero
-Desarrollador Full Stack
+Full Stack Developer
 
 GitHub: https://github.com/DanteAguero
 
-Demo: https://hogar-y-mas-web.onrender.com
+Especialización: e-commerce, automatización, Flask, Docker, UX orientado a conversión
 
-📄 Licencia
+📌 Nota
 
-Proyecto de uso demostrativo y educativo.
-Puede adaptarse o extenderse según necesidad.
+Este proyecto fue desarrollado con foco en casos reales, priorizando:
+
+Usabilidad
+
+Seguridad básica
+
+Tiempo de entrega
+
+Facilidad de adaptación para distintos rubros
