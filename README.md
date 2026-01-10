@@ -95,3 +95,61 @@ The project is organized with a clear and maintainable structure:
 /docker-compose.yml
 /Dockerfile
 /requirements.txt
+This structure allows the project to be:
+
+Easily scalable
+
+Adaptable to different business needs
+
+Ready for integration with payment gateways or external APIs
+
+🚀 Deployment
+
+The application is deployed on Render, using Docker containers and PostgreSQL.
+
+The deployment workflow is prepared for:
+
+Development environments
+
+Production environments
+
+Reuse of the project as a base for other applications
+
+🔐 Related Work (Private)
+
+This public repository represents a demo version of the project.
+
+A more advanced private version exists and is used in real commercial projects. It includes additional features such as:
+
+Shopping cart
+
+Checkout flow (WhatsApp integration)
+
+Enhanced product galleries (zoom, sticky images)
+
+Product recommendations
+
+Editorial-style UI for fashion brands
+
+Advanced configuration for real clients
+
+The private codebase is not publicly available for commercial reasons, but the full workflow can be demonstrated if required.
+
+👤 Author
+
+Dante Agüero
+Full Stack Developer
+
+GitHub: https://github.com/DanteAguero
+
+Specialization:
+
+Python & Flask
+
+E-commerce platforms
+
+Automation
+
+Docker
+
+UX focused on conversion
